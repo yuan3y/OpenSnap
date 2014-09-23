@@ -18,7 +18,7 @@ function sanitize($data)
 }
 
 //$GLOBALS['con']=mysqli_connect("localhost","root","","php54");
-$con=mysqli_connect("localhost","adminstzRqnc","uAs_UVmwpm7p","php54");
+$con=mysqli_connect("$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT","adminstzRqnc","uAs_UVmwpm7p","php54");
 
 if (mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
