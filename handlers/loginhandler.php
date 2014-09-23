@@ -2,20 +2,22 @@
 class LoginHandler {
 	function get() {
 		$email 		= sanitize($_GET["email"]);
-		$password 	= sanitize($_GETT["password"]);
+		$password 	= sanitize($_GET["password"]);// no password
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'&& 'password'=$password";
 		if ($result = mysqli_query($GLOBALS['co'], $sql)) {
 			//add if result = null
 			if (isempty($result)){
 				echo _response(array("error"=>"login does not match , error"),);
-				
 				}
-			
-			
-			echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0]);
-			mysqli_free_result($result);
+			else{
+				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0],200);
+				mysqli_free_result($result);
+			}
 		}
 	}
+	
+	/*
+	
 	function post() {
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);
@@ -42,6 +44,7 @@ class LoginHandler {
 			mysqli_free_result($result);
 		}
 	}
+	*/
 }
 
 ?>

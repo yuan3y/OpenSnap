@@ -24,7 +24,11 @@ Toro::serve(array(
     "/" => "HelloHandler",
     "/test/" => "TestHandler",
     "/users/" => "UsersHandler",
-    "/users/:number" => "UsersHandler"
+    "/users/:number" => "UsersHandler",
+	
+	
+	//CM ADD LINES FOR checklogin
+	 "/checklogin/" => "LoginHandler"
 ));
 
 ?>
