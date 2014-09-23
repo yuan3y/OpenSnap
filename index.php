@@ -38,6 +38,8 @@ class UsersHandler {
 	}
 }
 
+//this is added
+
 class HelloHandler {
     function get() {
 		echo 'Hello World!!!';
