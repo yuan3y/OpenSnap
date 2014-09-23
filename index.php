@@ -1,13 +1,13 @@
 <?php
-include "base.php";
+require 'base.php';
 require("toro.php");
 
 class UsersHandler {
-	function get($userid) {
-		$sql = "SELECT * FROM `user` WHERE 1";
+	function get($user_id) {
+		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `user_id`='$user_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			echo json_encode(new ArrayValue(mysqli_fetch_all($result)), JSON_PRETTY_PRINT);
-			/* free result set */
+			//echo json_encode(new ArrayValue(mysqli_fetch_all($result)), JSON_PRETTY_PRINT);
+			echo _response(new ArrayValue(mysqli_fetch_all($result)));
 			mysqli_free_result($result);
 		}
 	}
@@ -30,7 +30,7 @@ class UsersHandler {
 		//	die('Error: ' . mysqli_error($GLOBALS['con']));
 		//}
 		var_dump($result);
-		//_response(new ArrayValue(mysqli_fetch_all($result)));
+		echo _response(new ArrayValue(mysqli_fetch_all($result)));
 	}
 	function delete() {
 		$user_id 	= sanitize($_REQUEST["user_id"]);
@@ -40,25 +40,24 @@ class UsersHandler {
 
 class HelloHandler {
     function get() {
-      echo '{[ "11", "admin@example.com", "admin", "Admin Aplus", "0", "21" ]}';
+		echo 'Hello World!!!';
     }
 }
 
 class TestHandler {
 	function get() {
-		_response('{[ "11", "admin@example.com", "admin", "Admin Aplus", "0", "21" ]}');
-
+		echo '[["11","admin@example.com","admin","Admin Aplus","0","21"],["12","admin@example.com","admin","Admin Aplus","0","21"]]';
 	}
 	function post() {
-		_response('{[ "11", "admin@example.com", "admin", "Admin Aplus", "0", "21" ]}');
+		echo '[["11","admin@example.com","admin","Admin Aplus","0","21"],["12","admin@example.com","admin","Admin Aplus","0","21"]]';
 	}
 }
 
 Toro::serve(array(
     "/" => "HelloHandler",
+    "/test/" => "TestHandler",
     "/users/" => "UsersHandler",
-    "/users/:number" => "UsersHandler",
-    "/test/" => "TestHandler"
+    "/users/:number" => "UsersHandler"
 ));
 
 ?>
