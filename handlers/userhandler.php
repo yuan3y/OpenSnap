@@ -6,6 +6,9 @@ class UsersHandler {
 			echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0]);
 			mysqli_free_result($result);
 		}
+		else {
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),404);
+		}
 	}
 	function post() {
 		$email 		= sanitize($_POST["email"]);
