@@ -7,7 +7,7 @@ class LoginHandler {
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
-			if (isempty($result)){
+			if (!empty($result)){
 				echo _response(array("error"=>"login does not match , error"),404);
 				}
 			else{
@@ -27,7 +27,7 @@ class LoginHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			echo "here1";
-			if (isempty($result)){
+			if (!empty($result)){
 				echo "here2";
 				echo _response(array("error"=>"login does not match , error"),404);
 				}
