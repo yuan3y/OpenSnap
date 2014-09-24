@@ -4,7 +4,7 @@ class LoginHandler {
 		echo "hereGet";
 		$email 		= sanitize($_GET["email"]);
 		$password 	= sanitize($_GET["password"]);// no password
-		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'&& 'password'=$password";
+		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			if (isempty($result)){
@@ -23,7 +23,7 @@ class LoginHandler {
 		echo "herePost";
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);// no password
-		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'&& 'password'=$password";
+		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			echo "here1";

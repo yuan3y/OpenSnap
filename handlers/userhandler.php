@@ -1,13 +1,15 @@
 <?php
-class UsersHandler {
+class UserHandler {
 	function get($user_id) {
-		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `user_id`='$user_id'";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0]);
-			mysqli_free_result($result);
-		}
-		else {
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),404);
+		if (!empty($user_id)){
+			$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `user_id`='$user_id'";
+			if ($result = mysqli_query($GLOBALS['con'], $sql)) {
+				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0]);
+				mysqli_free_result($result);
+			}
+			else {
+				echo _response(array("error"=>mysqli_error($GLOBALS['con'])),404);
+			}
 		}
 	}
 	function post() {
