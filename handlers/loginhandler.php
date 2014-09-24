@@ -26,11 +26,13 @@ class LoginHandler {
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'&& 'password'=$password";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
-			echo "here1"
+			echo "here1";
 			if (isempty($result)){
+				echo "here2";
 				echo _response(array("error"=>"login does not match , error"),404);
 				}
 			else{
+				echo "here2 else";
 				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0],200);
 				mysqli_free_result($result);
 			}
