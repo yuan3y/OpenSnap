@@ -45,10 +45,45 @@ function _cleanInputs($data) {
 
 function _requestStatus($code) {
 	$status = array(  
-		200 => 'OK',
+/*		200 => 'OK',
 		404 => 'Not Found',   
 		405 => 'Method Not Allowed',
-		500 => 'Internal Server Error',
+		500 => 'Internal Server Error',*/
+		200 =>	'OK',
+201 =>	'Created',
+202 =>	'Accepted',
+203 =>	'Not authoritative',
+204 =>	'No content',
+//205 =>	'Reset',
+//206 =>	'Partial',
+//300 =>	'Multiple choices',
+//301 =>	'Moved permanently',
+//302 =>	'Moved temporarily',
+//303 =>	'See other',
+//304 =>	'Not modified',
+//305 =>	'Use proxy.',
+400 =>	'Bad Request',
+401 =>	'Unauthorized',
+//402 =>	'Payment required',
+//403 =>	'Forbidden',
+404 =>	'Not found',
+405 =>	'Bad Method', //e.g. POST method only, but received an GET method
+406 =>	'Not acceptable',
+//407 =>	'Proxy authentication required',
+408 =>	'Client Timeout',
+409 =>	'Conflict',
+410 =>	'Gone',
+411 =>	'Length required',
+412 =>	'Precondition failed',
+413 =>	'Entity too large',
+414 =>	'Request too long',
+415 =>	'Unsupported type',
+500 =>	'Internal error',
+501 =>	'Not implemented',
+502 =>	'Bad Gateway',
+503 =>	'Unavailable',
+504 =>	'Gateway timeout',
+505 =>	'Version not supported'
 		); 
 	return ($status[$code])?$status[$code]:$status[500]; 
 }

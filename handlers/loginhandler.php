@@ -15,7 +15,7 @@ class LoginHandler {
 			}
 		}
 		else{ //SQL (grammar) has error
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),442);
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
 	
@@ -34,16 +34,20 @@ class LoginHandler {
 			}
 		}
 		else{ //SQL (grammar) has error
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),442);
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
-	/*
+/*
 	function delete() {
 		$user_id 	= sanitize($_REQUEST["user_id"]);
 		$sql = "DELETE FROM `php54`.`user` WHERE `user`.`user_id` = $user_id;";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			echo _response("",204);
+		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+			echo _response(array("success"=>"deleted $user_id"),204);
 			mysqli_free_result($result);
+			}
+		}
+		else{ //SQL (grammar) has error
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
 	*/

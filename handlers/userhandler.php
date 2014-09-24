@@ -27,7 +27,7 @@ class UserHandler {
 			}
 		}
 		else {
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),422);
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),404);
 		}
 	}
 	function put($user_id) {
