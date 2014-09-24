@@ -1,5 +1,5 @@
 <?php
-class JournalsHandler {
+class EntriesHandler {
 	function get($entry_id) {//get full product details when productid or barcode is present
 		$sql = "SELECT `entry_id`,`user_id`,`product_id`,`timestamp`,`image`,`rating_ease`,`rating_safety`,`rating_reseal`,`rating_overall`,`comment`FROM `journal` WHERE `entry_id`='$entry_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
