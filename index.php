@@ -1,8 +1,10 @@
 <?php
 require 'base.php';
 require("toro.php");
+require("handlers/journalhandler.php");
+require("handlers/loginhandler.php");
+require("handlers/producthandler.php");
 require("handlers/userhandler.php");
-
 //this is added
 
 class HelloHandler {
