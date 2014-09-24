@@ -36,7 +36,7 @@ Toro::serve(array(
 	 "/products/" => "ProductsHandler",
 	 "/products/:number" => "ProductsHandler",
 	 "/entries/" => "EntriesHandler",
-	 "/entries/:number" => "EntriesHandler"
+	 "/entries/:number" => "EntriesHandler",
 	 "/ImageHandler/" => "ImageHandler"
 ));
 
