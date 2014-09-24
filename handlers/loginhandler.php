@@ -1,6 +1,7 @@
 <?php
 class LoginHandler {
 	function get() {
+		echo "here";
 		$email 		= sanitize($_GET["email"]);
 		$password 	= sanitize($_GET["password"]);// no password
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'&& 'password'=$password";
