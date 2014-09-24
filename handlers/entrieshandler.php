@@ -17,12 +17,12 @@ class EntriesHandler {
 				mysqli_free_result($result);
 			}
 		}
-		else{ //SQL (grammar) has error
+		else{ //SQL (grammar) has error 
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
 
-	
+
 	function post() { // 10 colums , get user inputs and insert new product to system
 		$entry_id 		= sanitize($_POST["entry_id"]); // journal entries auto generate, need this?
 		$user_id 		= sanitize($_POST["user_id "]);
