@@ -18,7 +18,7 @@ class UserHandler {
 	}
 	function put($user_id) {
 	}
-	function delete() {
+	function delete($user_id) {
 		$user_id 	= sanitize($_REQUEST["user_id"]);
 		$sql = "DELETE FROM `php54`.`user` WHERE `user`.`user_id` = $user_id;";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
