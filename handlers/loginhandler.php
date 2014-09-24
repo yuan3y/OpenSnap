@@ -20,7 +20,6 @@ class LoginHandler {
 	
 	
 	function post() {
-		echo "herePost";
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);// no password
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
