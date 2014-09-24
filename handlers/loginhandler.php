@@ -27,7 +27,7 @@ class LoginHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			echo "here1";
-			if (!empty($result)){
+			if (empty($result)){
 				echo "here2";
 				echo _response(array("error"=>"login does not match , error"),404);
 				}
