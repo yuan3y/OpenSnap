@@ -1,6 +1,6 @@
 <?php
 class EntriesHandler{
-	echo("ENTERING ENTRIES HANDLER");
+	
 
 	//SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='' AND `product_id`=''
 	function get($entry_id,$user_id) {
@@ -22,6 +22,7 @@ class EntriesHandler{
 
 
 	function post() { 
+		echo("ENTERING ENTRIES HANDLER");
 		//$entry_id 		= sanitize($_POST["entry_id"]); 
 		$user_id 		= sanitize($_POST["user_id "]);
 		$product_id		= sanitize($_POST["product_id"]);
