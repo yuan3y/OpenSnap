@@ -1,8 +1,10 @@
 <?php
 
 class ImageHandler {
-	function get($entry_id) {
+	function get() {
 //SELECT  `image` FROM `entry` WHERE `entry_id`=''
+
+		$entry_id 		= sanitize($_GET["entry_id"]);
 		$sql = "SELECT  `image` FROM `entry` WHERE `entry_id`='$entry_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);

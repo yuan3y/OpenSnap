@@ -1,9 +1,13 @@
 <?php
 class EntriesHandler{
-	
+	echo("ENTERING ENTRIES HANDLER main");
 
 	//SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='' AND `product_id`=''
-	function get($entry_id,$user_id) {
+	function get() {
+		$entry_id 		= sanitize($_GET["entry_id"]);
+		$user_id 		= sanitize($_GET["user_id"]);
+
+
 		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -22,7 +26,7 @@ class EntriesHandler{
 
 
 	function post() { 
-		echo("ENTERING ENTRIES HANDLER");
+		echo("ENTERING ENTRIES HANDLER post");
 		//$entry_id 		= sanitize($_POST["entry_id"]); 
 		$user_id 		= sanitize($_POST["user_id "]);
 		$product_id		= sanitize($_POST["product_id"]);
