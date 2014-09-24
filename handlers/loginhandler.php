@@ -24,23 +24,18 @@ class LoginHandler {
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);// no password
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			//add if result = null
-			$result2 = mysqli_fetch_all($result,MYSQLI_ASSOC);
-			echo "here1";
-			var_dump($result2);
-			if (empty($result2)){
-				echo "here2";
+		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
+			if (empty($resultArray)){
 				echo _response(array("error"=>"login does not match , error"),404);
 				}
 			else{
-				echo "here2 else";
-				echo _response($result2[0],200);
+				echo _response($resultArray[0],200);
 				mysqli_free_result($result);
 			}
 		}
-		else{
-			echo "here else1";
+		else{ //SQL (grammar) has error
+			echo _response(array("error"=>"SQL Syntax Error"),404);
 		}/*
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);
