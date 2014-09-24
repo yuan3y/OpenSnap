@@ -25,7 +25,7 @@ class TestHandler {
 Toro::serve(array(
     "/" => "HelloHandler",
     "/test/" => "TestHandler",
-    "/users/" => "UsersHandler",
+    "/users/" => "UserHandler",
     "/users/:number" => "UserHandler",
 	
 	
