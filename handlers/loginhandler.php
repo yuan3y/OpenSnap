@@ -8,7 +8,7 @@ class LoginHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			if (isempty($result)){
-				echo _response(array("error"=>"login does not match , error"),);
+				echo _response(array("error"=>"login does not match , error"),404);
 				}
 			else{
 				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0],200);
@@ -27,7 +27,7 @@ class LoginHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			if (isempty($result)){
-				echo _response(array("error"=>"login does not match , error"),);
+				echo _response(array("error"=>"login does not match , error"),404);
 				}
 			else{
 				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0],200);
