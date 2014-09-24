@@ -4,7 +4,7 @@ class LoginHandler {
 		$email 		= sanitize($_GET["email"]);
 		$password 	= sanitize($_GET["password"]);// no password
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'&& 'password'=$password";
-		if ($result = mysqli_query($GLOBALS['co'], $sql)) {
+		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			//add if result = null
 			if (isempty($result)){
 				echo _response(array("error"=>"login does not match , error"),);
