@@ -1,10 +1,11 @@
 <?php
 require 'base.php';
 require("toro.php");
-require("handlers/journalhandler.php");
+require("handlers/entryhandler.php");
 require("handlers/loginhandler.php");
 require("handlers/producthandler.php");
 require("handlers/userhandler.php");
+require("handlers/usershandler.php");
 //this is added
 
 class HelloHandler {
@@ -25,7 +26,7 @@ class TestHandler {
 Toro::serve(array(
     "/" => "HelloHandler",
     "/test/" => "TestHandler",
-    "/users/" => "UserHandler",
+    "/users/" => "UsersHandler",
     "/users/:number" => "UserHandler",
 	
 	
@@ -33,8 +34,8 @@ Toro::serve(array(
 	 "/checklogin/" => "LoginHandler",
 	 "/products/" => "ProductsHandler",
 	 "/products/:number" => "ProductsHandler",
-	 "/journals/" => "JournalsHandler",
-	 "/journal/:number" => "JournalsHandler"
+	 "/entries/" => "EntriesHandler",
+	 "/entries/:number" => "EntriesHandler"
 ));
 
 ?>
