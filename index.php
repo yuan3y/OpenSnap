@@ -1,7 +1,8 @@
 <?php
 require 'base.php';
 require("toro.php");
-require("handlers/entrieshandler.php");
+require("handlers/imagehandler.php");
+require("handlers/entryhandler.php");
 require("handlers/loginhandler.php");
 require("handlers/producthandler.php");
 require("handlers/userhandler.php");
@@ -36,6 +37,7 @@ Toro::serve(array(
 	 "/products/:number" => "ProductsHandler",
 	 "/entries/" => "EntriesHandler",
 	 "/entries/:number" => "EntriesHandler"
+	 "/ImageHandler/" => "ImageHandler"
 ));
 
 ?>
