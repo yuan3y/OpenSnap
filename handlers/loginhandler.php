@@ -1,27 +1,8 @@
 <?php
 class LoginHandler {
 	function get() {
-		echo "hereGet";
 		$email 		= sanitize($_GET["email"]);
-		$password 	= sanitize($_GET["password"]);// no password
-		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			//add if result = null
-			if (!empty($result)){
-				echo _response(array("error"=>"login does not match , error"),404);
-				}
-			else{
-				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0],200);
-				mysqli_free_result($result);
-			}
-		}
-	}
-	
-	
-	
-	function post() {
-		$email 		= sanitize($_POST["email"]);
-		$password 	= sanitize($_POST["password"]);// no password
+		$password 	= sanitize($_GET["password"]);
 		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -34,24 +15,27 @@ class LoginHandler {
 			}
 		}
 		else{ //SQL (grammar) has error
-			echo _response(array("error"=>"SQL Syntax Error"),404);
-		}/*
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),442);
+		}
+	}
+	
+	function post() {
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);
-		$name 		= sanitize($_POST["name"]);
-		$gender 	= sanitize($_POST["gender"]);
-		$age 		= sanitize($_POST["age"]);
-		$sql = "INSERT INTO `php54`.`user` (`user_id`, `email`, `password`, `name`, `gender`, `age`) VALUES (NULL, '$email', '$password', '$name', '$gender', '$age');";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM `user` WHERE `email`='$email'";
-			if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-				echo _response(mysqli_fetch_all($result,MYSQLI_ASSOC)[0],201);
+		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
+		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
+			if (empty($resultArray)){
+				echo _response(array("error"=>"login does not match , error"),404);
+				}
+			else{
+				echo _response($resultArray[0],200);
 				mysqli_free_result($result);
 			}
 		}
-		else {
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),422);
-		}*/
+		else{ //SQL (grammar) has error
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),442);
+		}
 	}
 	/*
 	function delete() {
