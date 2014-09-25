@@ -1,6 +1,8 @@
 <?php
 class EntriesHandler{
-
+	function get($user_id) {
+		echo "get success";
+	}
 
 	function post($user_id) { // for user journal feed
 		//$user_id 		= sanitize($_POST["user_id"]);
@@ -14,7 +16,7 @@ class EntriesHandler{
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				echo _response(""),200);
+				echo _response((""),200);
 			}
 			else{
 				echo _response($resultArray[0],200);
