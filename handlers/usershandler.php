@@ -50,7 +50,7 @@ class UsersHandler {
 				}
 			}
 			else {
-				echo _response(array("error"=>"user duplicated, error"),404);
+				echo _response(array("error"=>"Email has been used"),404);
 			}
 		}
 		else{ //SQL (grammar) has error
