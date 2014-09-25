@@ -17,6 +17,7 @@ function sanitize($data)
     return $data;
 }
 
+var_dump("$_ENV['OPENSHIFT_MYSQL_DB_HOST']:$_ENV['OPENSHIFT_MYSQL_DB_PORT']","$_ENV['OPENSHIFT_MYSQL_DB_USERNAME']","$_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']","$_ENV['OPENSHIFT_APP_NAME']");
 //$GLOBALS['con']=mysqli_connect("localhost","root","","php54");
 $con=mysqli_connect("$_ENV['OPENSHIFT_MYSQL_DB_HOST']:$_ENV['OPENSHIFT_MYSQL_DB_PORT']","$_ENV['OPENSHIFT_MYSQL_DB_USERNAME']","$_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']","$_ENV['OPENSHIFT_APP_NAME']");
 //$con=mysqli_connect("127.6.113.130:3306","adminstzRqnc","uAs_UVmwpm7p","php54");
