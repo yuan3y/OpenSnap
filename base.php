@@ -18,7 +18,8 @@ function sanitize($data)
 }
 
 //$GLOBALS['con']=mysqli_connect("localhost","root","","php54");
-$con=mysqli_connect($OPENSHIFT_MYSQL_DB_HOST.":".$OPENSHIFT_MYSQL_DB_PORT,"adminstzRqnc","uAs_UVmwpm7p","php54");
+$addr="$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT";
+$con=mysqli_connect($addr,"adminstzRqnc","uAs_UVmwpm7p","php54");
 //$con=mysqli_connect("127.6.113.130:3306","adminstzRqnc","uAs_UVmwpm7p","php54");
 
 if (mysqli_connect_errno()) {
