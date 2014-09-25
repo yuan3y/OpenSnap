@@ -79,6 +79,7 @@ class EntryHandler{
 		else {//Handles update entries
 			var_dump($entry_id);var_dump($rating_ease);var_dump($rating_safety);var_dump($rating_reseal);var_dump($comment);
 			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$enrty_id'";
+			var_dump($sql);
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				var_dump($result);
 				if ($result){
