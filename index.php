@@ -2,7 +2,7 @@
 require 'base.php';
 require("toro.php");
 require("handlers/imagehandler.php");
-require("handlers/entrieshandler.php");
+require("handlers/entryhandler.php");
 require("handlers/loginhandler.php");
 require("handlers/producthandler.php");
 require("handlers/userhandler.php");
@@ -16,11 +16,12 @@ class HelloHandler {
 }
 
 class TestHandler {
-	function get() {
-		echo '[["11","admin@example.com","admin","Admin Aplus","0","21"],["12","admin@example.com","admin","Admin Aplus","0","21"]]';
+	function get($id) {
+		echo $id;
+		echo ' captured';
 	}
 	function post() {
-		echo '[["11","admin@example.com","admin","Admin Aplus","0","21"],["12","admin@example.com","admin","Admin Aplus","0","21"]]';
+		echo 'post method';
 	}
 }
 
@@ -35,9 +36,9 @@ Toro::serve(array(
 	 "/checklogin/" => "LoginHandler",
 	 "/products/" => "ProductsHandler",
 	 "/products/:number" => "ProductsHandler",
-	 "/entries/" => "EntriesHandler",
-	 "/entries/:number" => "EntriesHandler",
-	 "/image/" => "ImageHandler"
+	 "/entries/" => "EntryHandler",
+	 "/images/" => "ImageHandler",
+	 "/users/:number/entries/" => "TestHandler"
 ));
 
 ?>
