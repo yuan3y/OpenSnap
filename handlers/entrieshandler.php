@@ -73,6 +73,8 @@ class EntriesHandler{
 				}
 			}
 			else {
+				var_dump($resultArray);
+				echo "test";
 				echo _response(array("error"=>"user duplicated, error"),404);
 			}
 		}
