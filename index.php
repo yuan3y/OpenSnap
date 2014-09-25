@@ -1,14 +1,14 @@
 <?php
 require 'base.php';
-require("toro.php");
-require("handlers/imagehandler.php");
-require("handlers/entrieshandler.php");// once connect, php website down
-require("handlers/entryhandler.php");
-require("handlers/loginhandler.php");
-require("handlers/producthandler.php");
-require("handlers/userhandler.php");
-require("handlers/usershandler.php");
-//require("handlers/entrieshandler1.php") //<---test class
+require "toro.php";
+include "handlers/imagehandler.php";
+include "handlers/entrieshandler.php";
+include "handlers/entryhandler.php";
+include "handlers/loginhandler.php";
+include "handlers/producthandler.php";
+include "handlers/userhandler.php";
+include "handlers/usershandler.php";
+//include "handlers/entrieshandler1.php"; //<---test class
 //this is added
  
 class HelloHandler {	
