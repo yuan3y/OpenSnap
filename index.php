@@ -8,7 +8,7 @@ require("handlers/loginhandler.php");
 require("handlers/producthandler.php");
 require("handlers/userhandler.php");
 require("handlers/usershandler.php");
-require("handlers/entrieshandler1.php") //<---test class
+//require("handlers/entrieshandler1.php") //<---test class
 //this is added
  
 class HelloHandler {
