@@ -6,7 +6,7 @@ class ImageHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				echo _response(array("error"=>"login does not match , error"),404);
+				echo _response(array("error"=>"image based on `entry_id` = $entry_id not found , error"),404);
 				}
 			else{
 				echo _response($resultArray[0],200);
