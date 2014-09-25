@@ -1,12 +1,8 @@
 <?php
 class EntryHandler{
-	//echo"ENTERING ENTRIES HANDLER main";
-
-	//SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='' AND `product_id`=''
-	function get() {
+function get() {
 		$product_id 		= sanitize($_GET["product_id"]);
 		$user_id 		= sanitize($_GET["user_id"]);
-
 
 		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -24,9 +20,7 @@ class EntryHandler{
 		}
 	}
 
-
-	function post() { 
-		//echo"ENTERING ENTRIES HANDLER post";
+	function post() {
 		$entry_id 		= sanitize($_POST["entry_id"]); 
 		$user_id 		= sanitize($_POST["user_id"]);
 		$product_id		= sanitize($_POST["product_id"]);
@@ -37,7 +31,6 @@ class EntryHandler{
 		$rating_reseal 	= sanitize($_POST["rating_reseal"]);
 		$rating_overall = sanitize($_POST["rating_overall"]);//need to get?
 		$comment 		= sanitize($_POST["comment"]);
-		var_dump(empty($_POST["entry_id"]));
 		if (empty($_POST["entry_id"])) { // handles new entries
 			$sql = "SELECT COUNT(*) AS cnt FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -50,7 +43,7 @@ class EntryHandler{
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 								if (empty($resultArray)){ 
-									echo _response(array("error"=>"unable to insert the user, error"),406);
+									echo _response(array("error"=>"entry_id does not exist, error, please check."),406);
 								} 
 								else{
 									echo _response($resultArray[0],201);
@@ -67,8 +60,6 @@ class EntryHandler{
 					}
 				}
 				else {
-					var_dump($resultArray);
-					echo "test";
 					echo _response(array("error"=>"user duplicated, error"),404);
 				}
 			}
@@ -77,11 +68,8 @@ class EntryHandler{
 			}
 		}
 		else {//Handles update entries
-			var_dump($entry_id);var_dump($rating_ease);var_dump($rating_safety);var_dump($rating_reseal);var_dump($comment);
 			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
-			var_dump($sql);
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-				var_dump($result);
 				if ($result){
 					$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -104,38 +92,6 @@ class EntryHandler{
 			}
 		}
 	}
-
-
-		/*
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
-			if (empty($resultArray)){
-				echo _response($resultArray[0],200);
-
-				mysqli_free_result($result);
-				//echo _response(array("error"=>"Insert Entries Failed , error"),404);
-				}
-			else{
-				echo _response(array("error"=>"Insert Entries Failed , error"),404);
-				//echo _response($resultArray[0],200);
-				//mysqli_free_result($result);
-			}
-		}
-		else{ //SQL (grammar) has error
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-		}
-	}*/
-	
-	/*
-	function delete() {
-		$user_id 	= sanitize($_REQUEST["user_id"]);
-		$sql = "DELETE FROM `php54`.`user` WHERE `user`.`user_id` = $user_id;";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
-			echo _response("",204);
-			mysqli_free_result($result);
-		}
-	}
-	*/
 }
 
 ?>
