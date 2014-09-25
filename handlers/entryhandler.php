@@ -51,7 +51,7 @@ class EntryHandler{
 								$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 								if (empty($resultArray)){ 
 									echo _response(array("error"=>"unable to insert the user, error"),406);
-								}
+								} 
 								else{
 									echo _response($resultArray[0],201);
 									mysqli_free_result($result);
