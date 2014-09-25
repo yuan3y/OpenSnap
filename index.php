@@ -11,7 +11,7 @@ require("handlers/usershandler.php");
 //require("handlers/entrieshandler1.php") //<---test class
 //this is added
  
-class HelloHandler {
+class HelloHandler {	
     function get() {
 		echo 'Hello World!!!';
     }
@@ -39,7 +39,7 @@ Toro::serve(array(
 	 "/products/:number" => "ProductsHandler",
 	 "/entries/" => "EntryHandler",
 	 "/entries/:number" => "EntriesHandler",
-	 "/image/" => "ImageHandler",
+	 "/entries/:number/image/" => "ImageHandler",
 	 "/journals/" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
 
 ));
