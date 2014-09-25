@@ -37,7 +37,7 @@ class EntriesHandler{
 		$rating_reseal 	= sanitize($_POST["rating_reseal"]);
 		$rating_overall = sanitize($_POST["rating_overall"]);//need to get?
 		$comment 		= sanitize($_POST["comment"]);
-	
+		var_dump(empty($_POST["entry_id"]));
 		if (empty($_POST["entry_id"])) { // handles new entries
 			$sql = "SELECT COUNT(*) AS cnt FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -79,8 +79,9 @@ class EntriesHandler{
 		else {//Handles update entries
 			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$enrty_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+				var_dump($result);
 				if ($result){
-					$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+					$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 						if (empty($resultArray)){ 
