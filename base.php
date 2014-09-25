@@ -18,7 +18,7 @@ function sanitize($data)
 }
 
 var_dump($_ENV);
-$addr=$OPENSHIFT_MYSQL_DB_HOST.":".$OPENSHIFT_MYSQL_DB_PORT;
+$addr=$_ENV["OPENSHIFT_MYSQL_DB_HOST"].":".$_ENV["$OPENSHIFT_MYSQL_DB_PORT"];
 var_dump($addr);
 //$GLOBALS['con']=mysqli_connect("localhost","root","","php54");
 $con=mysqli_connect("$addr","$OPENSHIFT_MYSQL_DB_USERNAME","$OPENSHIFT_MYSQL_DB_PASSWORD","$OPENSHIFT_APP_NAME");
