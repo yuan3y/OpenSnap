@@ -38,9 +38,9 @@ Toro::serve(array(
 	 "/products/" => "ProductsHandler",
 	 "/products/:number" => "ProductsHandler",
 	 "/entries/" => "EntryHandler",
-	 //"/entries/:number" => "EntriesHandler",
+	 "/entries/:number" => "EntriesHandler",
 	 "/image/" => "ImageHandler",
-	 "/entries/:number" => "EntriesHandler1"
+	 "/entries/:number" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
 
 ));
 
