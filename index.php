@@ -8,6 +8,7 @@ require("handlers/loginhandler.php");
 require("handlers/producthandler.php");
 require("handlers/userhandler.php");
 require("handlers/usershandler.php");
+require("handlers/entrieshandler1.php") //<---test class
 //this is added
  
 class HelloHandler {
@@ -37,8 +38,10 @@ Toro::serve(array(
 	 "/products/" => "ProductsHandler",
 	 "/products/:number" => "ProductsHandler",
 	 "/entries/" => "EntryHandler",
-	 "/entries/:number" => "EntriesHandler",
-	 "/image/" => "ImageHandler"
+	 //"/entries/:number" => "EntriesHandler",
+	 "/image/" => "ImageHandler",
+	 "/entries/:number" => "EntriesHandler1"
+
 ));
 
 ?>
