@@ -24,6 +24,7 @@ class ProductsHandler {
 
 		//,`avg_rating` not added in the follwoing SQL
 		$sql = "INSERT INTO `php54`.`product` (`product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`) VALUES ('$product_id', '$name', '$manufacturer', '$packaging_type', '$image', '$sum_of_rating','$no_of_raters');";
+		var_dump($sql);
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			$sql = $sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) {
