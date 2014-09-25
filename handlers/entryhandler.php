@@ -81,14 +81,10 @@ class EntryHandler{
 			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$enrty_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				var_dump($result);
-				if ($result){
+				if ($result){//get updated result back
 					$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
-						if (empty($resultArray)){ 
-							echo _response(array("error"=>"unable to insert the user, error"),406);
-						}
-						else{
 							echo _response($resultArray[0],201);
 							mysqli_free_result($result);
 						}
