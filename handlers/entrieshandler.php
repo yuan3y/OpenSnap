@@ -1,6 +1,8 @@
 <?php
 class EntriesHandler{
-
+	function get($user_id) {
+		echo "get success";
+	}
 
 	function post($user_id) { // for user journal feed
 		//$user_id 		= sanitize($_POST["user_id"]);
