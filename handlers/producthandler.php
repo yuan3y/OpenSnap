@@ -16,15 +16,15 @@ class ProductsHandler {
 		$name        		= sanitize($_POST["name"]);
 		$manufacturer		= sanitize($_POST["manufacturer"]);
 		$packaging_type 	= sanitize($_POST["packaging_type"]);
-		$image 				= sanitize($_POST["image"]);                //<--- might have error as it is in blob format
+		//$image 				= sanitize($_POST["image"]);                //<--- might have error as it is in blob format
 		$sum_of_rating 		= sanitize($_POST["sum_of_rating"]);
 		$no_of_raters 		= sanitize($_POST["no_of_raters"]);
 		//avg_rating need to be calculated here? or system output
 		//$avg_rating   		= $sum_of_rating / $no_of_raters;
 
-		//,`avg_rating` not added in the follwoing SQL
-		$sql = "INSERT INTO `php54`.`product` (`product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`) VALUES ('$product_id', '$name', '$manufacturer', '$packaging_type', '$image', '$sum_of_rating','$no_of_raters');";
-		var_dump($sql);
+		//`avg_rating` not added in the follwoing SQL
+		$sql = "INSERT IGNORE INTO `php54`.`product` (`product_id`,`name`,`manufacturer`,`packaging_type`,`sum_of_rating`,`no_of_raters`) VALUES ('$product_id', '$name', '$manufacturer', '$packaging_type', '$sum_of_rating','$no_of_raters');";
+		
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) {
 			$sql = $sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) {
