@@ -42,6 +42,7 @@ class ImageHandler {
 		// TODO: should check here if there exists a image_path where `entry_id` = $entry_id
 		//       if there is, remove the file.
 		$sql =  "SELECT `image` FROM `entry` WHERE `entry_id` = '$entry_id'";
+		$image_path = "";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
@@ -49,8 +50,9 @@ class ImageHandler {
 				mysqli_free_result($result);
 				}
 			else{
-				var_dump($resultArray);
 				//clear away the file.
+				$image_path=$resultArray[0]['image'];
+				var_dump($image_path);
 				echo "has file\n";
 				mysqli_free_result($result);
 			}
@@ -65,10 +67,9 @@ class ImageHandler {
 		$temp = sanitize(end($temp));
 		$image_path = $fix_path . $entry_id . "_" . time() . "." . $temp;
 		self::image_upload($image_path);
-		$sql = "INSERT INTO `php54`.`entry` (`entry_id`, `image`) VALUES ('$entry_id', '$image_path') WHERE `entry_id` = '$entry_id'"; //"upload/"+$entry_id+"_"+time()+'.jpg'
+		$sql = "REPLACE `php54`.`entry` (`entry_id`, `image`) VALUES ('$entry_id', '$image_path')"; //"upload/"+$entry_id+"_"+time()+'.jpg'
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
-			mysqli_free_result($result);
 		}
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
