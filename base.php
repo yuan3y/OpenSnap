@@ -23,15 +23,14 @@ function myconnect(){
 	$sqluser = $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
 	$sqlpwd = $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
 	$sqldb = $_ENV['OPENSHIFT_APP_NAME'];
+	global $con;
 	$con=mysqli_connect("$sqladdr","$sqluser","$sqlpwd","$sqldb");
+	if (mysqli_connect_errno()) {
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
 }
 
 myconnect();
-
-if (mysqli_connect_errno()) {
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
-
 
 function _response($data, $status = 200) {
 	header("HTTP/1.1 " . $status . " " . _requestStatus($status));
@@ -56,7 +55,7 @@ function _requestStatus($code) {
 		404 => 'Not Found',   
 		405 => 'Method Not Allowed',
 		500 => 'Internal Server Error',*/
-		200 =>	'OK',
+200 =>	'OK',
 201 =>	'Created',
 202 =>	'Accepted',
 203 =>	'Not authoritative',
