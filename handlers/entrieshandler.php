@@ -21,16 +21,19 @@ class EntriesHandler{
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
 				echo _response(""),200);
-			}
-			else{
-				echo _response($resultArray[0],200);
-				mysqli_free_result($result);
-			}
-		}
+}
+else{
+	echo _response($resultArray[0],200);
+	mysqli_free_result($result);
+}
+}
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
+}
+
+
 
 /*
 
@@ -76,5 +79,4 @@ class EntriesHandler{
 
 
 
-}
 ?>
