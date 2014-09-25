@@ -17,15 +17,16 @@ function sanitize($data)
     return $data;
 }
 
-var_dump($_ENV);
 //$GLOBALS['con']=mysqli_connect("localhost","root","","php54");
-$sqladdr = $_ENV['OPENSHIFT_MYSQL_DB_HOST'].':'.$_ENV['OPENSHIFT_MYSQL_DB_PORT'];
-$sqluser = $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
-$sqlpwd = $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
-$sqldb = $_ENV['OPENSHIFT_APP_NAME'];
-var_dump($sqladdr,$sqluser,$sqlpwd,$sqldb);
-$con=mysqli_connect("$sqladdr","$sqluser","$sqlpwd","$sqldb");
-//$con=mysqli_connect("127.6.113.130:3306","adminstzRqnc","uAs_UVmwpm7p","php54");
+function myconnect(){
+	$sqladdr = $_ENV['OPENSHIFT_MYSQL_DB_HOST'].':'.$_ENV['OPENSHIFT_MYSQL_DB_PORT'];
+	$sqluser = $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
+	$sqlpwd = $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
+	$sqldb = $_ENV['OPENSHIFT_APP_NAME'];
+	$con=mysqli_connect("$sqladdr","$sqluser","$sqlpwd","$sqldb");
+}
+
+myconnect();
 
 if (mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
