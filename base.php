@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once 'config.php'; //this has to be the first line of this file.
 $DEBUG=false;
 
 class ArrayValue implements JsonSerializable {
