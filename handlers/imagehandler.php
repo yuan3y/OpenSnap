@@ -97,7 +97,8 @@ class ImageHandler {
 			return $array;
 		}
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		//var_dump($_FILES);
+		var_dump($_FILES);
+		var_dump($_POST);
 		$temp = explode(".", $_FILES["image_file"]["name"]);
 		$extension = end($temp);
 
