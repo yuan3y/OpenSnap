@@ -6,11 +6,15 @@ class EntriesHandler{
 
 	function post($user_id) { // for user journal feed
 		//$user_id 		= sanitize($_POST["user_id"]);
-		var_dump($userid);
+		var_dump($user_id);
 
 
-		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
-		
+		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
+		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
+		//$sql ="SELECT * FROM `entry` WHERE `user_id`=`$user_id`";
+		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
+
+
 		var_dump($sql);
 
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
