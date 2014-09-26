@@ -10,36 +10,38 @@ include "handlers/userhandler.php";
 include "handlers/usershandler.php";
 //include "handlers/entrieshandler1.php"; //<---test class
  
-class HelloHandler {	
-    function get() {
-		echo 'Hello World!!!';
-    }
+class HelloHandler {
+	function get() {
+		echo 'Hello World!!!(get)';
+	}
+	function post() {
+		echo 'Hello World!!!(post)';
+	}
 }
 
 class TestHandler {
-	function get() {
-		echo '[["11","admin@example.com","admin","Admin Aplus","0","21"],["12","admin@example.com","admin","Admin Aplus","0","21"]]';
+	function get($id) {
+		echo "get $id successful";
 	}
-	function post() {
-		echo '[["11","admin@example.com","admin","Admin Aplus","0","21"],["12","admin@example.com","admin","Admin Aplus","0","21"]]';
+	function post($id) {
+		echo "post $id successful";
 	}
 }
 
 Toro::serve(array(
-    "/" => "HelloHandler",
-    "/test/" => "TestHandler",
-    "/users/" => "UsersHandler",
-    "/users/:number" => "UserHandler",
-	
-	
-	//CM ADD LINES FOR additional handlers
-	 "/checklogin/" => "LoginHandler",
-	 "/products/" => "ProductsHandler",
-	 "/products/:number" => "ProductsHandler",
-	 "/entries/" => "EntryHandler",
-	 "/entries/:number" => "EntriesHandler",
-	 "/entries/:number/image/" => "ImageHandler",
-	 "/journals/" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
+	"/" => "HelloHandler",
+	"/test/" => "HelloHandler",
+	"/test/:number" => "TestHandler",
+//--------------------------------------
+	"/users/" => "UsersHandler",
+	"/users/:number" => "UserHandler",
+	"/checklogin/" => "LoginHandler",
+	"/products/" => "ProductsHandler",
+	"/products/:number" => "ProductsHandler",
+	"/entries/" => "EntryHandler",
+	"/entries/:number" => "EntriesHandler",
+	"/entries/:number/image/" => "ImageHandler",
+	"/journals/" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
 
 ));
 
