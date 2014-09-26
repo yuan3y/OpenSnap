@@ -123,7 +123,7 @@ class ImageHandler {
 					echo _response(array("error"=>$image_path . " already exists. "),409);
 				}else {
 					move_uploaded_file($_FILES["tmp_name"],$image_path);
-					echo "$_FILES["tmp_name"]"; var_dump($_FILES["tmp_name"]);
+					
 						//"upload/" . $_FILES["image_file"]["name"]);
 					//echo "Stored in: " . "upload/" . $_FILES["image_file"]["name"];
 					//echo "stored in : " . $image_path;
