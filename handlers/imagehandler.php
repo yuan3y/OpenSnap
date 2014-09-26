@@ -1,5 +1,4 @@
 <?php
-$DEBUG = true;
 class ImageHandler {
 	function get($entry_id) {
 		$sql = "SELECT * FROM `entry` WHERE `entry_id` = '$entry_id'";
@@ -39,23 +38,19 @@ class ImageHandler {
 
 	function post($entry_id) {
 		$fix_path = "upload/";
-		// TODO: should check here if there exists a image_path where `entry_id` = $entry_id
-		//       if there is, remove the file.
+		//only process under the condition that $entry_id exists in the entry table.
 		$sql =  "SELECT `image` FROM `entry` WHERE `entry_id` = '$entry_id'";
-		$image_path = "";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($resultArray);
-				echo _response(array("error"=>"'entry_id' = $entry_id does not exist!"), 404);
+				echo _response(array("error"=>"`entry_id` = $entry_id does not exist"), 404);
 				mysqli_free_result($result);
 				}
 			else{
 				$image_path=$resultArray[0]['image'];
 				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($image_path);
-				//need to remove this file here.
-				if (is_file($image_path)){
-					unlink($image_path);
+				if (is_file($image_path)){ 	//if the file with the recorded path exists,
+					unlink($image_path); 	//remove this file.
 					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "exists, but removed now:) <br/>";
 				}
 				else {
@@ -81,12 +76,6 @@ class ImageHandler {
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
-
-
-
-
-		// TODO: update the Product's newest image_path
-
 	}
 
 	function image_upload($image_path){
@@ -141,5 +130,4 @@ class ImageHandler {
 		}
 	}
 }
-
 ?>
