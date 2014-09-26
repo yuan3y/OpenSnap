@@ -63,11 +63,11 @@ function get() {
 				}
 				else {
 					echo _response(array("error"=>"user duplicated, error"),404);
-					$sql = "UPDATE `entry` SET `entry_name`='$entry_name',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
+					$sql = "UPDATE `entry` SET `entry_name`='$entry_name',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								if ($result){
-									$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`,`entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
+									$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`,`entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 									if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 										$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 										if (empty($resultArray)){ 
