@@ -122,11 +122,12 @@ class ImageHandler {
 					//echo $_FILES["image_file"]["name"] . " already exists. ";
 					echo _response(array("error"=>$image_path . " already exists. "),409);
 				}else {
-					//move_uploaded_file($_FILES["image_file"]["tmp_name"],$image_path);
-					move_uploaded_file($_FILES["tmp_name"],$image_path);
+					//move_uploaded_file($_FILES["image_file"]["tmp_name"],$image_path); //<--yiyang code
+					move_uploaded_file($_FILES["name"],$image_path); //<-- cm code , $_FILES["image_file"]["tmp_name"] return the image path
 
 					var_dump($_FILES["image_file"]["tmp_name"]);
 					var_dump ($_FILES["tmp_name"]);
+					var_dump ($_FILES["image_file"]["name"]);
 
 						//"upload/" . $_FILES["image_file"]["name"]);
 					//echo "Stored in: " . "upload/" . $_FILES["image_file"]["name"];
