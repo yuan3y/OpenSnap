@@ -98,7 +98,7 @@ class ImageHandler {
 		}
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
 		var_dump($_FILES);
-		var_dump($_POST);
+		var_dump($_POST);var_dump($image_path);
 		$temp = explode(".", $_FILES["image_file"]["name"]);
 		$extension = end($temp);
 
@@ -122,8 +122,8 @@ class ImageHandler {
 					//echo $_FILES["image_file"]["name"] . " already exists. ";
 					echo _response(array("error"=>$image_path . " already exists. "),409);
 				}else {
-					//move_uploaded_file($_FILES["image_file"]["tmp_name"],
-					move_uploaded_file($_FILES["$image_path"]["tmp_name"],
+					move_uploaded_file($_FILES["image_file"]["tmp_name"], //<-- orginal code
+					//move_uploaded_file($_FILES["$image_path"]["tmp_name"],  //<-- cm code. replace image file as image path 
 						$image_path);
 						//"upload/" . $_FILES["image_file"]["name"]);
 					//echo "Stored in: " . "upload/" . $_FILES["image_file"]["name"];
