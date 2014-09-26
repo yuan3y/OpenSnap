@@ -4,7 +4,7 @@ function get() {
 		$product_id 		= sanitize($_GET["product_id"]);
 		$user_id 		= sanitize($_GET["user_id"]);
 
-		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`,, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
@@ -26,6 +26,7 @@ function get() {
 		$product_id		= sanitize($_POST["product_id"]);
 		//$timestamp 		= sanitize($_POST["timestamp "]);
 		//$image 			= sanitize($_POST["image "]);
+		$entry_name 	= sanitize($_POST["entry_name"]);
 		$rating_ease 	= sanitize($_POST["rating_ease"]);
 		$rating_safety 	= sanitize($_POST["rating_safety"]);
 		$rating_reseal 	= sanitize($_POST["rating_reseal"]);
@@ -36,10 +37,10 @@ function get() {
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 				if ($resultArray[0]['cnt']==0){
-					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
+					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						if ($result){
-							$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+							$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 								if (empty($resultArray)){ 
@@ -68,10 +69,10 @@ function get() {
 			}
 		}
 		else {//Handles update entries
-			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
+			$sql = "UPDATE `entry` SET `entry_name`=$entry_name,`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				if ($result){
-					$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
+					$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`,`entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 						if (empty($resultArray)){ 
