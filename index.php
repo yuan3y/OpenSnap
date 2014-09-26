@@ -44,4 +44,5 @@ Toro::serve(array(
 
 ));
 
+mysqli_close($con);
 ?>

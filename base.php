@@ -1,5 +1,5 @@
 <?php
-
+require_once 'config.php';
 $DEBUG=false;
 
 class ArrayValue implements JsonSerializable {
@@ -15,19 +15,6 @@ function sanitize($data)
 {
     mysqli_real_escape_string($GLOBALS['con'], $data);
     return $data;
-}
-
-//$GLOBALS['con']=mysqli_connect("localhost","root","","php54");
-function myconnect(){
-	$sqladdr = $_ENV['OPENSHIFT_MYSQL_DB_HOST'].':'.$_ENV['OPENSHIFT_MYSQL_DB_PORT'];
-	$sqluser = $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
-	$sqlpwd = $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
-	$sqldb = $_ENV['OPENSHIFT_APP_NAME'];
-	global $con;
-	$con=mysqli_connect("$sqladdr","$sqluser","$sqlpwd","$sqldb");
-	if (mysqli_connect_errno()) {
-		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
 }
 
 myconnect();
