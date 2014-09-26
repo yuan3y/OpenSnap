@@ -65,7 +65,7 @@ class ImageHandler {
 		$temp = sanitize(end($temp));
 		$image_path = $fix_path . $entry_id . "_" . time() . "." . $temp;
 		self::image_upload($image_path);
-
+		/*
 		//this query is for there's an existing image.
 		$sql = "UPDATE `php54`.`entry` SET `image`='$image_path' WHERE `entry_id` = '$entry_id'"; //"upload/"+$entry_id+"_"+time()+'.jpg'
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -75,7 +75,7 @@ class ImageHandler {
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 		// TODO: update the Product's newest image_path
-		
+		*/
 	}
 
 	function image_upload($image_path){
@@ -98,7 +98,8 @@ class ImageHandler {
 		}
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
 		var_dump($_FILES);
-		var_dump($_POST);var_dump($image_path);
+		var_dump($_POST);
+		var_dump($image_path);
 		$temp = explode(".", $_FILES["image_file"]["name"]);
 		$extension = end($temp);
 
@@ -117,21 +118,10 @@ class ImageHandler {
 				echo "Type: " . $_FILES["image_file"]["type"] . "<br>";
 				echo "Size: " . ($_FILES["image_file"]["size"] / 1024) . " kB<br>";
 				echo "Temp file: " . $_FILES["image_file"]["tmp_name"] . "<br>";*/
-				//if (file_exists("upload/" . $_FILES["image_file"]["name"])) {
 				if (file_exists($image_path)){
-					//echo $_FILES["image_file"]["name"] . " already exists. ";
 					echo _response(array("error"=>$image_path . " already exists. "),409);
 				}else {
-					//move_uploaded_file($_FILES["image_file"]["tmp_name"],$image_path); //<--yiyang code
-					move_uploaded_file($_FILES["name"],$image_path); //<-- cm code , $_FILES["image_file"]["tmp_name"] return the image path
-
-					var_dump($_FILES["image_file"]["tmp_name"]);
-					var_dump ($_FILES["image_file"]["tmp_name"]);
-					var_dump ($_FILES["image_file"]["name"]);
-
-						//"upload/" . $_FILES["image_file"]["name"]);
-					//echo "Stored in: " . "upload/" . $_FILES["image_file"]["name"];
-					//echo "stored in : " . $image_path;
+					move_uploaded_file($_FILES["image_file"]["tmp_name"],$image_path);
 				}
 			}
 		}else{
