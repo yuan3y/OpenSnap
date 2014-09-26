@@ -9,7 +9,6 @@ include "handlers/producthandler.php";
 include "handlers/userhandler.php";
 include "handlers/usershandler.php";
 //include "handlers/entrieshandler1.php"; //<---test class
-//this is added
  
 class HelloHandler {	
     function get() {
