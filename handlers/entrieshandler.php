@@ -1,6 +1,7 @@
 <?php
 class EntriesHandler{
 	function get($user_id) {
+		var_dump($userid);
 		echo "get success";
 	}
 
@@ -9,7 +10,7 @@ class EntriesHandler{
 		var_dump($userid);
 
 
-		$sql = "SELECT * FROM `entry` WHERE `user_id`='$user_id'";
+		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
 		
 		var_dump($sql);
 
