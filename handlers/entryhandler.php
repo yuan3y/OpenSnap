@@ -58,6 +58,12 @@ function get() {
 					}
 					else{ //SQL (grammar) has error
 						echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+
+					}
+				}
+				else {
+					echo _response(array("error"=>"user duplicated, error"),404);
+					$sql = "UPDATE `entry` SET `entry_name`='$entry_name',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								if ($result){
@@ -78,12 +84,6 @@ function get() {
 								}
 							}
 						}
-					}
-				}
-				else {
-					echo _response(array("error"=>"user duplicated, error"),404);
-					$sql = "UPDATE `entry` SET `entry_name`='$entry_name',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
-
 
 				}
 			}
