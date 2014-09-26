@@ -47,35 +47,46 @@ class ImageHandler {
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
 				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($resultArray);
+				echo _response(array("error"=>"'entry_id' = $entry_id does not exist!"), 404);
 				mysqli_free_result($result);
 				}
 			else{
 				$image_path=$resultArray[0]['image'];
 				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($image_path);
-				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "has file<br/>";
 				//need to remove this file here.
+				if (is_file($image_path)){
+					unlink($image_path);
+					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "exists, but removed now:) <br/>";
+				}
+				else {
+					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "has record, but no file found. <br/>";
+				}
 				mysqli_free_result($result);
+//-------------
+				$tmp = explode(".", $_FILES["image_file"]["name"]);
+				$tmp = sanitize(end($tmp));
+				$image_path = $fix_path . $entry_id . "_" . time() . "." . $tmp;
+				self::image_upload($image_path);
+//---------------
+				//this query is for there's an existing image.
+				$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
+				if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+					echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
+				}
+				else{ //SQL (grammar) has error
+					echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+				}
 			}
 		}
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 
-		$temp=explode(".", $_FILES["image_file"]["name"]);
-		$temp = sanitize(end($temp));
-		$image_path = $fix_path . $entry_id . "_" . time() . "." . $temp;
-		self::image_upload($image_path);
-		/*
-		//this query is for there's an existing image.
-		$sql = "UPDATE `php54`.`entry` SET `image`='$image_path' WHERE `entry_id` = '$entry_id'"; //"upload/"+$entry_id+"_"+time()+'.jpg'
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
-		}
-		else{ //SQL (grammar) has error
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-		}
+
+
+
 		// TODO: update the Product's newest image_path
-		*/
+
 	}
 
 	function image_upload($image_path){
