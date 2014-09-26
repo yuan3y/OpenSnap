@@ -60,6 +60,7 @@ class ImageHandler {
 //-------------
 				$tmp = explode(".", $_FILES["image_file"]["name"]);
 				$tmp = sanitize(end($tmp));
+				var_dump($_ENV);
 				$image_path = $fix_path . $entry_id . "_" . time() . "." . $tmp;
 				self::image_upload($image_path);
 //---------------
