@@ -1,5 +1,5 @@
 <?php
-
+$DEBUG = true;
 class ImageHandler {
 	function get($entry_id) {
 		$sql = "SELECT * FROM `entry` WHERE `entry_id` = '$entry_id'";
@@ -46,13 +46,13 @@ class ImageHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				var_dump($resultArray);
+				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($resultArray);
 				mysqli_free_result($result);
 				}
 			else{
 				$image_path=$resultArray[0]['image'];
-				var_dump($image_path);
-				echo "has file<br/>";
+				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($image_path);
+				if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "has file<br/>";
 				//need to remove this file here.
 				mysqli_free_result($result);
 			}
@@ -97,9 +97,9 @@ class ImageHandler {
 			return $array;
 		}
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		var_dump($_FILES);
-		var_dump($_POST);
-		var_dump($image_path);
+		//var_dump($_FILES);
+		//var_dump($_POST);
+		//var_dump($image_path);
 		$temp = explode(".", $_FILES["image_file"]["name"]);
 		$extension = end($temp);
 
@@ -122,6 +122,7 @@ class ImageHandler {
 					echo _response(array("error"=>$image_path . " already exists. "),409);
 				}else {
 					move_uploaded_file($_FILES["image_file"]["tmp_name"],$image_path);
+					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "uploaded to $image_path";
 				}
 			}
 		}else{
