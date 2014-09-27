@@ -1,7 +1,7 @@
 <?php
 require 'base.php'; //this has to be the 1st in the list of require/include statements.
 require "toro.php"; //this has to be the 2nd in the list of require/include statements.
-//include "handlers/imagehandler.php";
+include "handlers/imagehandler.php";
 include "handlers/entrieshandler.php";
 include "handlers/entryhandler.php";
 include "handlers/loginhandler.php";
@@ -40,7 +40,7 @@ Toro::serve(array(
 	"/products/:number" => "ProductsHandler",
 	"/entries/" => "EntryHandler",
 	"/entries/:number" => "EntriesHandler", //<--CM, pls remove this line --YY>
-	"/users/:number/entries/" = > "EntriesHandler", //<-- this is what u meant to have get($user_id) in EntriesHandler class
+	"/users/:number/entries/" => "EntriesHandler", //<-- this is what u meant to have get($user_id) in EntriesHandler class
 	"/entries/:number/image/" => "ImageHandler",
 	"/journals/" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
 
