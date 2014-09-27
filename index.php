@@ -39,7 +39,8 @@ Toro::serve(array(
 	"/products/" => "ProductsHandler",
 	"/products/:number" => "ProductsHandler",
 	"/entries/" => "EntryHandler",
-	"/entries/:number" => "EntriesHandler",
+	"/entries/:number" => "EntriesHandler", //<--CM, pls remove this line --YY>
+	"/users/:number/entries/" = > "EntriesHandler", //<-- this is what u meant to have get($user_id) in EntriesHandler class
 	"/entries/:number/image/" => "ImageHandler",
 	"/journals/" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
 
