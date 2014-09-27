@@ -37,8 +37,9 @@ class ImageHandler {
 	}
 
 	function post($entry_id) {
-		/*
 		$fix_path = "$_ENV['OPENSHIFT_DATA_DIR']/upload/";
+		var_dump($fix_path);
+		/*
 		//only process under the condition that $entry_id exists in the entry table.
 		$sql =  "SELECT `image` FROM `entry` WHERE `entry_id` = '$entry_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
