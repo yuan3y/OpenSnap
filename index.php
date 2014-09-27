@@ -1,7 +1,7 @@
 <?php
 require 'base.php'; //this has to be the 1st in the list of require/include statements.
 require "toro.php"; //this has to be the 2nd in the list of require/include statements.
-include "handlers/imagehandler.php";
+//include "handlers/imagehandler.php";
 include "handlers/entrieshandler.php";
 include "handlers/entryhandler.php";
 include "handlers/loginhandler.php";
