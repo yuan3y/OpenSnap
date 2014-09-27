@@ -37,7 +37,7 @@ class ImageHandler {
 	}
 
 	function post($entry_id) {
-		$fix_path = "$_ENV['OPENSHIFT_DATA_DIR']/upload/";
+		$fix_path = $_ENV["OPENSHIFT_DATA_DIR"]."/upload/";
 		var_dump($fix_path);
 		/*
 		//only process under the condition that $entry_id exists in the entry table.
