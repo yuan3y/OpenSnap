@@ -37,6 +37,7 @@ class ImageHandler {
 	}
 
 	function post($entry_id) {
+		$DEBUG = true;
 		$fix_path = "upload/";
 		//only process under the condition that $entry_id exists in the entry table.
 		$sql =  "SELECT `image` FROM `entry` WHERE `entry_id` = '$entry_id'";
@@ -60,7 +61,7 @@ class ImageHandler {
 //-------------
 				$tmp = explode(".", $_FILES["image_file"]["name"]);
 				$tmp = sanitize(end($tmp));
-				var_dump($_ENV);
+				//var_dump($_ENV('OPENSHIFT_DATA_DIR'));
 				$image_path = $fix_path . $entry_id . "_" . time() . "." . $tmp;
 				self::image_upload($image_path);
 //---------------
