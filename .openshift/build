@@ -5,9 +5,10 @@
 # ruby, etc.
 
 rm -rf $OPENSHIFT_REPO_DIR/upload
-
-if [ ! -d $OPENSHIFT_DATA_DIR/upload ]; then
+echo "...............pre_build............creating symlinks................."
+if [ ! -d "$OPENSHIFT_DATA_DIR/upload" ]; then
     mkdir $OPENSHIFT_DATA_DIR/upload
+    echo directory made.
 fi
- 
 ln -sf $OPENSHIFT_DATA_DIR/upload $OPENSHIFT_REPO_DIR/upload
+echo ".............creating symlinks completed........................"
