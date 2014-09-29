@@ -1,7 +1,14 @@
 <?php
 require_once 'config.php'; //this has to be the first line of this file.
+require_once "toro.php"; //this has to be the 2nd in the list of require/include statements.
 global $DEBUG;
 $DEBUG=false;
+
+ToroHook::add("error404",  function() { //there's the corresponding change in toro.php
+    header('HTTP/1.1 404 Not Found');
+    echo json_encode(array("error"=>"Please check against our API at https://github.com/yuan3y/OpenSnap"),JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT); //error message, however, this conflicts with any other 404 errors.
+});
+
 
 class ArrayValue implements JsonSerializable {
 	public function __construct(array $array) {
@@ -20,10 +27,26 @@ function sanitize($data)
 
 myconnect();
 
+/*
+$response_func = function() use(&$l) {
+};
+$response_func();
+*/
+
 function _response($data, $status = 200) {
-	header("HTTP/1.1 " . $status . " " . _requestStatus($status));
-	return json_encode($data);
+	/*header("HTTP/1.1 " . $status . " " . _requestStatus($status));
+	return json_encode($data);*/
+	ToroHook::add("$status", function() use(&$status, &$data) {
+		header("HTTP/1.1 " . $status . " " . _requestStatus($status));
+		echo json_encode($data);
+	});
+	ToroHook::add("after_request", function() use(&$status) {
+		ToroHook::fire("$status");
+		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) {var_dump($_SERVER);}
+	});
 }
+
+$GLOBALS['DEBUG']=true;
 
 function _cleanInputs($data) {
 	$clean_input = Array();

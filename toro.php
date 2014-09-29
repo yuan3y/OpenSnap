@@ -73,11 +73,11 @@ class Toro
                 ToroHook::fire('after_handler', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
             }
             else {
-                ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
+                ToroHook::fire('error404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
             }
         }
         else {
-            ToroHook::fire('404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
+            ToroHook::fire('error404', compact('routes', 'discovered_handler', 'request_method', 'regex_matches'));
         }
 
         ToroHook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
