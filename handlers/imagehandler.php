@@ -107,10 +107,6 @@ class ImageHandler {
 			if ($_FILES["image_file"]["error"] > 0) {
 				echo  _response(array("error"=>"Return Code: " . $_FILES["image_file"]["error"]),404);
 			} else {
-				/*echo "Upload: " . $_FILES["image_file"]["name"] . "<br>";
-				echo "Type: " . $_FILES["image_file"]["type"] . "<br>";
-				echo "Size: " . ($_FILES["image_file"]["size"] / 1024) . " kB<br>";
-				echo "Temp file: " . $_FILES["image_file"]["tmp_name"] . "<br>";*/
 				if (file_exists($image_path)){
 					echo _response(array("error"=>$image_path . " already exists. "),409);
 				}else {
