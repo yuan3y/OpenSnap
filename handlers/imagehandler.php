@@ -58,20 +58,21 @@ class ImageHandler {
 					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "has record, but no file found. <br/>";
 				}
 				mysqli_free_result($result);
-//-------------
+//------------------------------------------------------------------
 				$temp = explode(".", $_FILES["image_file"]["name"]);
 				$extension = sanitize(strtolower(end($temp)));
 				//var_dump($_ENV('OPENSHIFT_DATA_DIR'));
 				$image_path = $fix_path . $entry_id . "_" . time() . "." . $extension;
-				self::image_upload($image_path);
-//---------------
-				//this query is for there's an existing image.
-				$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
-				if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-					echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
-				}
-				else{ //SQL (grammar) has error
-					echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+				if (!self::image_upload($image_path)){
+//------------------------------------------------------------------
+					//this query is for there's an existing image.
+					$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
+					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+						echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
+					}
+					else{ //SQL (grammar) has error
+						echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+					}
 				}
 			}
 		}
@@ -112,11 +113,13 @@ class ImageHandler {
 				}else {
 					move_uploaded_file($_FILES["image_file"]["tmp_name"],$image_path);
 					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "uploaded to $image_path";
+					return 0;
 				}
 			}
 		}else{
 			echo _response(array("error"=>"Invalid file"),415);
-			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo var_dump($_FILES);
+			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($_FILES);
+			return -1;
 		}
 	}
 }
