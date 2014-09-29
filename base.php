@@ -42,11 +42,9 @@ function _response($data, $status = 200) {
 	});
 	ToroHook::add("after_request", function() use(&$status) {
 		ToroHook::fire("$status");
-		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) {var_dump($_SERVER);}
+		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) {echo '\n\r<br>\n\r'; var_dump($_SERVER);}
 	});
 }
-
-$GLOBALS['DEBUG']=true;
 
 function _cleanInputs($data) {
 	$clean_input = Array();
