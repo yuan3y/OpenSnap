@@ -1,4 +1,5 @@
 <?php
+//$GLOBALS['DEBUG']=true; //add this line (&uncomment it) to enable debugging.
 class ImageHandler {
 	function get($entry_id) {
 		$sql = "SELECT * FROM `entry` WHERE `entry_id` = '$entry_id'";
@@ -58,10 +59,10 @@ class ImageHandler {
 				}
 				mysqli_free_result($result);
 //-------------
-				$tmp = explode(".", $_FILES["image_file"]["name"]);
-				$tmp = sanitize(end($tmp));
+				$temp = explode(".", $_FILES["image_file"]["name"]);
+				$extension = sanitize(strtolower(end($temp)));
 				//var_dump($_ENV('OPENSHIFT_DATA_DIR'));
-				$image_path = $fix_path . $entry_id . "_" . time() . "." . $tmp;
+				$image_path = $fix_path . $entry_id . "_" . time() . "." . $extension;
 				self::image_upload($image_path);
 //---------------
 				//this query is for there's an existing image.
@@ -98,20 +99,11 @@ class ImageHandler {
 			return $array;
 		}
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
-		//var_dump($_FILES);
-		//var_dump($_POST);
-		//var_dump($image_path);
 		$temp = explode(".", $_FILES["image_file"]["name"]);
-		$extension = end($temp);
-
-		if ((($_FILES["image_file"]["type"] == "image/gif")
-		|| ($_FILES["image_file"]["type"] == "image/jpeg")
-		|| ($_FILES["image_file"]["type"] == "image/jpg")
-		|| ($_FILES["image_file"]["type"] == "image/pjpeg")
-		|| ($_FILES["image_file"]["type"] == "image/x-png")
-		|| ($_FILES["image_file"]["type"] == "image/png"))
-		&& ($_FILES["image_file"]["size"] < 20000000)
-		&& in_array($extension, $allowedExts)) {
+		$extension = strtolower(end($temp));
+		if ($_FILES["image_file"]["size"] < 20000000
+			//&& in_array($extension, $allowedExts)
+		){
 			if ($_FILES["image_file"]["error"] > 0) {
 				echo  _response(array("error"=>"Return Code: " . $_FILES["image_file"]["error"]),404);
 			} else {
@@ -128,6 +120,7 @@ class ImageHandler {
 			}
 		}else{
 			echo _response(array("error"=>"Invalid file"),415);
+			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo var_dump($_FILES);
 		}
 	}
 }
