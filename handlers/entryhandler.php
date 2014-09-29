@@ -121,7 +121,7 @@ function get() {
 }
 
 
-
+/*
 	function New_Product_Rating_Changer(){ // will do the update of overall rating and counter for product
 		//will need to ->>sum_of_rating +=user rating, no_of_raters++;
 
@@ -131,7 +131,7 @@ function get() {
 		//2. update the current data by adding the current entry overall rating in and increase the counter by 1 and store it back
 		//$sql="UPDATE `product` SET `sum_of_rating`='',`no_of_raters`='' WHERE `product_id`='$product_id'";
 
-	}
+	}*/
 
 		function Update_Product_Ratings(){ // will do the update of overall rating and counter for product
 		//will need to ->>sum_of_rating +=(current)user rating - (prevoious)user_rating, 
@@ -167,6 +167,6 @@ function get() {
 
 	}
 
-
+}
 
 ?>
