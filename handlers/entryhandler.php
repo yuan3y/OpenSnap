@@ -45,6 +45,9 @@ function get() {
 					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `entry_name`, `manufacturer`, `packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$manufacturer','$packaging_type','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
 					//var_dump($manufacturer);
 					//var_dump($sql);
+					//need to create new / update product table and ratings
+
+
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						if ($result){
 							$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`,`manufacturer`,`packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
@@ -71,7 +74,8 @@ function get() {
 				else {//when entry is duplicate, allow them to overwrite
 					//echo _response(array("error"=>"warning overwriting old entries"),200); 
 					$sql = "UPDATE `entry` SET `entry_name`='$entry_name', `manufacturer`='$manufacturer', `packaging_type`='$packaging_type',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
-						var_dump($sql);
+						//var_dump($sql);
+						//neeed to update product table and ratings
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								if ($result){
@@ -139,8 +143,8 @@ function get() {
 		//$sql="UPDATE `product` SET `sum_of_rating`='',`no_of_raters`='' WHERE `product_id`='$product_id'";
 
 	}*/
-/*
-		function Update_Product_Ratings(){ // will do the update of overall rating and counter for product
+
+		function Update_Product_Table(){ // will do the update of overall rating and counter for product
 		//will need to ->>sum_of_rating +=(current)user rating - (prevoious)user_rating, 
 		$New_sum_of_rating =0;
 		$New_no_of_raters=0;
@@ -158,7 +162,9 @@ function get() {
 		if ($result = mysqli_query($GLOBALS['con'], $sql_select)) { //SQL (grammar) is correctly executed
 				$New_sum_of_rating = $result[0] +$sum_of_rating; //current sum_of_rating + new entry rating
 				$New_no_of_raters= $result[1]+1;				//current no_of_rater ++;
-
+				var_dump($New_sum_of_rating);
+				var_dump($New_no_of_raters);
+				var_dump($result);
 				if ($result = mysqli_query($GLOBALS['con'], $sql_update)) {
 					$result = mysqli_query($GLOBALS['con'], $sql_selectAll);
 					echo _response($resultArray[0],201);
@@ -171,10 +177,9 @@ function get() {
 		else{
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
-
-
 	}
-*/
+
+
 //below are the overall ending
 }
 
