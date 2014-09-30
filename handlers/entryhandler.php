@@ -42,7 +42,7 @@ function get() {
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 				if ($resultArray[0]['cnt']==0){
-					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `entry_name`, `manufacturer`, `packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$manufacturer','$packaging_type',$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
+					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `entry_name`, `manufacturer`, `packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$manufacturer','$packaging_type','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
 					var_dump($sql);
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						if ($result){
@@ -89,7 +89,7 @@ function get() {
 									}
 								}
 							}
-						}//k
+						}
 
 				}
 			}
