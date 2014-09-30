@@ -143,7 +143,7 @@ function get() {
 		//$sql="UPDATE `product` SET `sum_of_rating`='',`no_of_raters`='' WHERE `product_id`='$product_id'";
 
 	}*/
-
+/*
 		function Update_Product_Table(){ // will do the update of overall rating and counter for product
 		//will need to ->>sum_of_rating +=(current)user rating - (prevoious)user_rating, 
 		$New_sum_of_rating =0;
@@ -179,7 +179,7 @@ function get() {
 		}
 	}
 
-
+*/
 //below are the overall ending
 }
 
