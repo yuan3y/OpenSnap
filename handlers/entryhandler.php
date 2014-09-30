@@ -71,7 +71,7 @@ function get() {
 				else {//when entry is duplicate, allow them to overwrite
 					//echo _response(array("error"=>"warning overwriting old entries"),200); 
 					$sql = "UPDATE `entry` SET `entry_name`='$entry_name', `manufacturer`='$manufacturer', `packaging_type`='$packaging_type',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
-						var_dump($sql)
+						var_dump($sql);
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								if ($result){
