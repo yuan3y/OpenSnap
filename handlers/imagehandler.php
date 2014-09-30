@@ -51,7 +51,8 @@ class ImageHandler {
 						//this query is for there's an existing image.
 						$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-							echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
+							echo _response(array( "entry_id" => $entry_id , "image"=>$image_path),200);
+
 						}
 						else{ //SQL (grammar) has error
 							echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
