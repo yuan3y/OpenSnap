@@ -13,6 +13,7 @@ function get() {
 			if (empty($resultArray)){
 				//echo _response(array("error"=>"Entries Not Found"),404);
 				echo _response($resultArray[0],200);
+				mysqli_free_result($result);
 				}
 			else{
 				echo _response($resultArray[0],200);
