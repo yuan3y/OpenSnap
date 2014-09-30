@@ -18,25 +18,6 @@ class ImageHandler {
 		}
 	}
 
-	function fakepost(){
-		$email 		= sanitize($_POST["email"]);
-		$password 	= sanitize($_POST["password"]);
-		$sql = "SELECT `user_id`, `email`, `name`, `gender`, `age` FROM user WHERE ((`user`.`email` = '$email') AND (`user`.`password` = '$password'))";
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
-			if (empty($resultArray)){
-				echo _response(array("error"=>"login does not match , error"),404);
-				}
-			else{
-				echo _response($resultArray[0],200);
-				mysqli_free_result($result);
-			}
-		}
-		else{ //SQL (grammar) has error
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-		}
-	}
-
 	function post($entry_id) {
 		$fix_path = "upload/";
 		//only process under the condition that $entry_id exists in the entry table.
@@ -59,20 +40,26 @@ class ImageHandler {
 				}
 				mysqli_free_result($result);
 //------------------------------------------------------------------
-				$temp = explode(".", $_FILES["image_file"]["name"]);
-				$extension = sanitize(strtolower(end($temp)));
-				//var_dump($_ENV('OPENSHIFT_DATA_DIR'));
-				$image_path = $fix_path . $entry_id . "_" . time() . "." . $extension;
-				if (!self::image_upload($image_path)){
-//------------------------------------------------------------------
-					//this query is for there's an existing image.
-					$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
-					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-						echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
+				if (isset($_FILES["image_file"]))
+				{
+					$temp = explode(".", $_FILES["image_file"]["name"]);
+					$extension = sanitize(strtolower(end($temp)));
+					//var_dump($_ENV('OPENSHIFT_DATA_DIR'));
+					$image_path = $fix_path . $entry_id . "_" . time() . "." . $extension;
+					if (!self::image_upload($image_path)){
+	//------------------------------------------------------------------
+						//this query is for there's an existing image.
+						$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
+						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+							echo _response(array( "entry_id" => $entry_id , "image"=>$image_path));
+						}
+						else{ //SQL (grammar) has error
+							echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+						}
 					}
-					else{ //SQL (grammar) has error
-						echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-					}
+				}
+				else {
+					echo _response(array("error"=>"no file uploaded"),400);
 				}
 			}
 		}
@@ -103,6 +90,7 @@ class ImageHandler {
 		$temp = explode(".", $_FILES["image_file"]["name"]);
 		$extension = strtolower(end($temp));
 		if ($_FILES["image_file"]["size"] < 20000000
+			&& $_FILES["image_file"]["size"] > 0
 			//&& in_array($extension, $allowedExts)
 		){
 			if ($_FILES["image_file"]["error"] > 0) {
