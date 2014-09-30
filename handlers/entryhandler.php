@@ -12,7 +12,7 @@ function get() {
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
 				//echo _response(array("error"=>"Entries Not Found"),404);
-				echo _response(""$resultArray[0]"",200);
+				echo _response("",200);
 				mysqli_free_result("");
 				}
 			else{
