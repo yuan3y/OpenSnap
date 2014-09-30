@@ -11,7 +11,8 @@ function get() {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				echo _response(array("error"=>"Entries Not Found"),404);
+				//echo _response(array("error"=>"Entries Not Found"),404);
+				echo _response($resultArray[0],200);
 				}
 			else{
 				echo _response($resultArray[0],200);
