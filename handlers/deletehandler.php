@@ -1,16 +1,15 @@
 <?php
 class DeleteHandler{
-	function get($user_id) {
+	function get($entry_id) {
 		echo "get success";
 	}
 
 
 	function post($entry_id) {
-		$user_id 	= sanitize($_REQUEST["user_id"]);
 		$sql = "DELETE FROM `entry` WHERE `entry_id`='$entry_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			echo _response(array("success"=>"deleted $user_id"),204);
-			mysqli_free_result($result);
+			echo _response(array("success"=>"entry  $entry_id has been successfully deleleted"),204);
+			//mysqli_free_result($result);
 		}	
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
