@@ -8,6 +8,7 @@ include "handlers/loginhandler.php";
 include "handlers/producthandler.php";
 include "handlers/userhandler.php";
 include "handlers/usershandler.php";
+include "handlers/deletehandler.php";
 //include "handlers/entrieshandler1.php"; //<---test class
  
 class HelloHandler {
@@ -42,7 +43,9 @@ Toro::serve(array(
 	"/entries/:number" => "EntriesHandler", //<--CM, pls remove this line --YY>
 	"/users/:number/entries/" => "EntriesHandler", //<-- this is what u meant to have get($user_id) in EntriesHandler class
 	"/entries/:number/image/" => "ImageHandler",
-	"/journals/" => "EntriesHandler1" //<-- test handler. same as entries handler BOTH STILL cause the index to go error
+	"/journals/" => "EntriesHandler", //<-- test handler. same as entries handler BOTH STILL cause the index to go error
+	"/entries/:number/delete/" => "DeleteHandler"
+
 
 ));
 
