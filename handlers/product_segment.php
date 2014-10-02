@@ -1,10 +1,10 @@
 <?php
 
 $sql = "SELECT COUNT(*) AS cnt FROM `product` WHERE `product_id`='$product_id'";//>>>check whether existing product exist<<<
-echo "product segment started";
+if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) echo "product segment started";
 if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 	$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
-	var_dump($resultArray[0]['cnt']);
+	if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($resultArray[0]['cnt']);
 	if ($resultArray[0]['cnt']==0){//>>>insert product<<<
 		$sql = "INSERT IGNORE INTO `php54`.`product` (`product_id`,`name`,`manufacturer`,`packaging_type`) VALUES ('$product_id', '$entry_name', '$manufacturer', '$packaging_type')";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
