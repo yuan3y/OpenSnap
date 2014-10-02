@@ -23,8 +23,8 @@ if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctl
 				}
 				else{ //SQL (grammar) has error
 					echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-				}*/
-			}
+				}
+			}*/
 		}
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
@@ -33,8 +33,8 @@ if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctl
 	else {//>>>Handles update product<<<
 		$sql = "UPDATE `product` SET `name`='$entry_name',`manufacturer`='$manufacturer',`packaging_type`='$packaging_type' WHERE `product_id`='$product_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			if ($result){
-				/*$sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
+			/*if ($result){
+				$sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
 				if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 					$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 					if (empty($resultArray)){ 
@@ -48,8 +48,8 @@ if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctl
 				}
 				else{ //SQL (grammar) has error
 					echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-				}*/
-			}
+				}
+			}*/
 		}
 		else{ //SQL (grammar) has error
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
