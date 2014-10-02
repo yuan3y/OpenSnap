@@ -1,10 +1,6 @@
 <?php
 class BrowseHandler{
-	function get($user_id) {
-		echo "get success";
-	}
-
-	function post() { // for user journal feed
+	function get() {
 		$_POST = _set_default('manufacturer','packaging_type');
 		$manufacturer 	= sanitize($_POST["manufacturer"]);
 		$packaging_type 	= sanitize($_POST["packaging_type"]);
@@ -17,9 +13,16 @@ class BrowseHandler{
 			echo "we are here";
 			$sql += " 1 ORDER BY 'product_id'"; // show all product
 		}
-		else if ($manufacturer=="" && $packaging_type!=""){
-			$sql += " ";
+		else
+		{
+			echo "we are not here";
+			var_dump($manufacturer);
+			var_dump($packaging_type);
 		}
+
+		/* if ($manufacturer=="" && $packaging_type!=""){
+			$sql += " ";
+		}*/
 
 
 
