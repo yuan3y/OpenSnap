@@ -1,7 +1,7 @@
 <?php
 class BrowseHandler{
 	function get() {
-		$_GET = _set_default('manufacturer','packaging_type');
+		$_GET = _set_default_get('manufacturer','packaging_type');
 		$manufacturer 	= sanitize($_GET["manufacturer"]);
 		$packaging_type 	= sanitize($_GET["packaging_type"]);
 
