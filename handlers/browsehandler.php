@@ -7,23 +7,24 @@ class BrowseHandler{
 
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
 		
-		$sql = "SELECT `product_id`, `name`, `manufacturer`, `packaging_type`, `image`, `no_of_raters`, `avg_rating` FROM `product` WHERE";
+		$sql = "SELECT `product_id`, `name`, `manufacturer`, `packaging_type`, `image`, `no_of_raters`, `avg_rating` FROM `product` WHERE ";
 		
-		if(empty($manufacturer) && empty($packaging_type)) {
-			echo "we are here";
-			$sql .= " 1 ORDER BY `product_id`"; // show all product
+		if(empty($manufacturer)) {
+			if (empty($packaging_type)) {
+				$sql .= "1 ORDER BY  `avg_rating` DESC `"; // show all product
+			}
+			else {
+				$sql .= "`packaging_type` = '$packaging_type'"; //has packaging type only
+			}
 		}
-		else
-		{
-			echo "we are not here";
-			var_dump($manufacturer);
-			var_dump($packaging_type);
+		else {
+			if (empty($packaging_type)) {
+				$sql .= " `manufacturer` = '$manufacturer'";
+			}
+			else {
+				$sql .= " `packaging_type` = '$packaging_type' AND `manufacturer` = '$manufacturer'";
+			}
 		}
-
-		/* if ($manufacturer=="" && $packaging_type!=""){
-			$sql += " ";
-		}*/
-
 
 
 
