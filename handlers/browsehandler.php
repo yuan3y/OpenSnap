@@ -1,9 +1,9 @@
 <?php
 class BrowseHandler{
 	function get() {
-		$_POST = _set_default('manufacturer','packaging_type');
-		$manufacturer 	= sanitize($_POST["manufacturer"]);
-		$packaging_type 	= sanitize($_POST["packaging_type"]);
+		$_GET = _set_default('manufacturer','packaging_type');
+		$manufacturer 	= sanitize($_GET["manufacturer"]);
+		$packaging_type 	= sanitize($_GET["packaging_type"]);
 
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
 		
