@@ -2,7 +2,6 @@
 class DeleteHandler{
 	function get($entry_id) {
 		$result_array = null;
-		include "testsegment.php";
 		echo _response($result_array,201);
 	}
 
