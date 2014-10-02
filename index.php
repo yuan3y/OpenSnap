@@ -9,7 +9,7 @@ include "handlers/producthandler.php";
 include "handlers/userhandler.php";
 include "handlers/usershandler.php";
 include "handlers/deletehandler.php";
-//include "handlers/entrieshandler1.php"; //<---test class
+include "handlers/browsehandler.php";
  
 class HelloHandler {
 	function get() {
@@ -42,8 +42,8 @@ Toro::serve(array(
 	"/entries/" => "EntryHandler",
 	"/users/:number/entries/" => "EntriesHandler",
 	"/entries/:number/image/" => "ImageHandler",
-	"/entries/:number/delete/" => "DeleteHandler"
-
+	"/entries/:number/delete/" => "DeleteHandler",
+	"/browse/" => "BrowseHandler"
 
 ));
 
