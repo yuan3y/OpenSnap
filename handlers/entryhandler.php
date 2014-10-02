@@ -43,15 +43,18 @@ function get() {
 		include "product_segment.php";
 		if (empty($_POST["entry_id"])) { // handles new entries
 			$sql = "SELECT COUNT(*) AS cnt FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 				if ($resultArray[0]['cnt']==0){
 					//need to create new / update product table and ratings
 					
 					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
+					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						if ($result){
-							$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+							$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `entry`.`product_id`='$product_id'";
+							if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 								if (empty($resultArray)){ 
@@ -75,29 +78,29 @@ function get() {
 				}
 				else {//when entry is duplicate, allow them to overwrite
 					//echo _response(array("error"=>"warning overwriting old entries"),200); 
-					$sql = "UPDATE `entry` SET ``rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+					$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 						if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 						//neeed to update product table and ratings
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+							$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `entry`.`product_id`='$product_id'";
+							if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-								if ($result){
-									$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
-									if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-										$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
-										if (empty($resultArray)){ 
-											echo _response(array("error"=>"unable to insert the user, error"),406);
-										}
-										else{
-											//echo _response($resultArray[0],201);
-											$responseArray[] = $resultArray[0];
-											mysqli_free_result($result);
-										}
-									}
-									else{ //SQL (grammar) has error
-										echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
-									}
+								$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
+								if (empty($resultArray)){ 
+									echo _response(array("error"=>"unable to insert the user, error"),406);
+								}
+								else{
+									//echo _response($resultArray[0],201);
+									$responseArray[] = $resultArray[0];
+									mysqli_free_result($result);
 								}
 							}
+							else{ //SQL (grammar) has error
+								echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+							}
+						}
+						else {
+							echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 						}
 
 				}
@@ -108,9 +111,11 @@ function get() {
 		}
 		else {//Handles update entries
 			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
+			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				if ($result){
 					$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `entry_id`='$entry_id'";
+					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 						if (empty($resultArray)){ 
