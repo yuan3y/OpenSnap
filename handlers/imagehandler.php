@@ -48,9 +48,10 @@ class ImageHandler {
 					$image_path = $fix_path . $entry_id . "_" . time() . "." . $extension;
 					if (!self::image_upload($image_path)){
 	//------------------------------------------------------------------
-						//this query is for there's an existing image.
-						$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id'";
-						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
+						//if an image is uploaded.
+						$sql = "UPDATE `php54`.`entry` SET `image`='$image_path'  WHERE `entry_id` = '$entry_id';
+						UPDATE `product` SET `image`='$image_path' WHERE (`product_id` = (SELECT `product_id` FROM `entry` WHERE `entry_id`='$entry_id'));";
+						if ($result = mysqli_multi_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 							echo _response(array( "entry_id" => $entry_id , "image"=>$image_path),200);
 
 						}
