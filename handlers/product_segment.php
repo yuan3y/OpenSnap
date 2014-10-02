@@ -1,6 +1,7 @@
 <?php
 
 $sql = "SELECT COUNT(*) AS cnt FROM `product` WHERE `product_id`='$product_id'";//>>>check whether existing product exist<<<
+echo "product segment started";
 if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 	$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 	var_dump($resultArray[0]['cnt']);
