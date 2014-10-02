@@ -9,7 +9,7 @@ class BrowseHandler{
 		
 		$sql = "SELECT `product_id`, `name`, `manufacturer`, `packaging_type`, `image`, `no_of_raters`, `avg_rating` FROM `product` WHERE";
 		
-		if(empty($manufacturer) && empty($packaging_type){
+		if(empty($manufacturer) && empty($packaging_type)) {
 			echo "we are here";
 			$sql += " 1 ORDER BY 'product_id'"; // show all product
 		}
