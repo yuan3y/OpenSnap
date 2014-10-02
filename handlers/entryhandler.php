@@ -30,7 +30,7 @@ function get() {
 		$_POST = _set_default('entry_id','user_id','product_id');
 		//--------end of set default
 
-		$responseArray = null;
+		//$responseArray = null;
 		$entry_id 		= sanitize($_POST["entry_id"]); 
 		$user_id 		= sanitize($_POST["user_id"]);
 		$product_id		= sanitize($_POST["product_id"]);
@@ -65,7 +65,7 @@ function get() {
 									echo _response(array("error"=>"entry_id does not exist, error, please check."),406);
 								} 
 								else{
-									//echo _response($resultArray[0],201);
+									echo _response($resultArray[0],201);
 									$responseArray[] = $resultArray[0];
 									mysqli_free_result($result);
 								}
@@ -94,8 +94,7 @@ function get() {
 									echo _response(array("error"=>"unable to insert the user, error"),406);
 								}
 								else{
-									//echo _response($resultArray[0],201);
-									$responseArray[] = $resultArray[0];
+									echo _response($resultArray[0],201);
 									mysqli_free_result($result);
 								}
 							}
@@ -126,7 +125,7 @@ function get() {
 							echo _response(array("error"=>"unable to insert the user, error"),406);
 						}
 						else{
-							//echo _response($resultArray[0],201);
+							echo _response($resultArray[0],201);
 							$responseArray[] = $resultArray[0];
 							mysqli_free_result($result);
 						}
@@ -141,7 +140,6 @@ function get() {
 			}
 		}
 		include "rating_segment.php";
-		_response($responseArray, 201);
 	}
 
 
