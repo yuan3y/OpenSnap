@@ -7,10 +7,10 @@ class DeleteHandler{
 
 	function post($entry_id) {
 		$sql = "DELETE FROM `entry` WHERE `entry_id`='$entry_id'";
-		var_dump($sql);
+		//var_dump($sql);
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			$GLOBALS['DEBUG']=true;
-			echo _response(array("success"=>"entry  $entry_id has been successfully deleleted"),204);
+			//$GLOBALS['DEBUG']=true;
+			echo _response(array("success"=>"entry  $entry_id has been successfully deleleted"),202);
 			//echo _response(array("error"=>"entry  $entry_id has been successfully deleleted"),204);
 			//mysqli_free_result($result);
 		}	
