@@ -11,7 +11,7 @@ class BrowseHandler{
 		
 		if(empty($manufacturer) && empty($packaging_type)) {
 			echo "we are here";
-			$sql += " 1 ORDER BY 'product_id'"; // show all product
+			$sql += " 1 ORDER BY `product_id`"; // show all product
 		}
 		else
 		{
