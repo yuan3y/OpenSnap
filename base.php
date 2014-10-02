@@ -68,7 +68,7 @@ function _requestStatus($code) {
 201 =>	'Created',
 202 =>	'Accepted',
 203 =>	'Not authoritative',
-204 =>	'No content',
+//204 =>	'No content',
 //205 =>	'Reset',
 //206 =>	'Partial',
 //300 =>	'Multiple choices',
