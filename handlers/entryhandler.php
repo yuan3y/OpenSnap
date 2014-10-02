@@ -82,7 +82,6 @@ function get() {
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								if ($result){
 									$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`,`entry_name`,`manufacturer`,`packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
-									var_dump($sql);
 									if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 										$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 										if (empty($resultArray)){ 
