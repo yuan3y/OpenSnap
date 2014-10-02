@@ -9,7 +9,7 @@ if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctl
 		$sql = "INSERT IGNORE INTO `php54`.`product` (`product_id`,`name`,`manufacturer`,`packaging_type`) VALUES ('$product_id', '$entry_name', '$manufacturer', '$packaging_type')";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			/*if ($result){
-				$sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
+				$sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
 				if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 					$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 					if (empty($resultArray)){ 
@@ -34,7 +34,7 @@ if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctl
 		$sql = "UPDATE `product` SET `name`='$entry_name',`manufacturer`='$manufacturer',`packaging_type`='$packaging_type' WHERE `product_id`='$product_id'";
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			/*if ($result){
-				$sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`sum_of_rating`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
+				$sql = "SELECT `product_id`,`name`,`manufacturer`,`packaging_type`,`image`,`no_of_raters`,`avg_rating`FROM `product` WHERE `product_id`='$product_id'";
 				if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 					$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 					if (empty($resultArray)){ 

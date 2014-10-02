@@ -140,6 +140,7 @@ function get() {
 				echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 			}
 		}
+		include "rating_segment.php";
 		_response($responseArray, 201);
 	}
 
