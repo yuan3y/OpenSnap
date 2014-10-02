@@ -68,6 +68,23 @@ function _set_default() {
 	return array_merge($defaultArray, $_POST);
 }
 
+function _set_default_post() {
+	$arg_list = func_get_args();
+	$defaultArray=null;
+	foreach ($arg_list as $arg) {
+		$defaultArray[$arg] = '';
+	}
+	return array_merge($defaultArray, $_POST);
+}
+
+function _set_default_get() {
+	$arg_list = func_get_args();
+	$defaultArray=null;
+	foreach ($arg_list as $arg) {
+		$defaultArray[$arg] = '';
+	}
+	return array_merge($defaultArray, $_GET);
+}
 
 
 function _requestStatus($code) {
