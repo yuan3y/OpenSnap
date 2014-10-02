@@ -12,8 +12,8 @@ class EntriesHandler{
 		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
 		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
 		//$sql ="SELECT * FROM `entry` WHERE `user_id`=`$user_id`";
-		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
-
+		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'ORDER BY `entry_id` DESC";
+		$sql="SELECT `entry_id` ,  `user_id` ,  `product_id` ,  `timestamp` ,  `image` ,  `entry_name` ,  `rating_ease` ,  `rating_safety` ,  `rating_reseal` , `rating_overall` ,  `comment` FROM  `entry` WHERE  `user_id` = '2'ORDER BY  `timestamp` DESC ";
 
 		var_dump($sql);
 
@@ -23,7 +23,7 @@ class EntriesHandler{
 				echo _response((""),200);
 			}
 			else{
-				echo _response($resultArray[0],200);
+				echo _response($resultArray,200);
 				mysqli_free_result($result);
 				}
 			}
