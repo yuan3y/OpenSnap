@@ -116,7 +116,7 @@ function get() {
 			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				if ($result){
-					$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `entry_id`='$entry_id'";
+					$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `entry`.`image`, `entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `entry_id`='$entry_id'";
 					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
