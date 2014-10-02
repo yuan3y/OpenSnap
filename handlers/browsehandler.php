@@ -11,7 +11,7 @@ class BrowseHandler{
 		
 		if(empty($manufacturer)) {
 			if (empty($packaging_type)) {
-				$sql .= "1 ORDER BY  `avg_rating` DESC `"; // show all product
+				$sql .= "1 ORDER BY  `avg_rating` DESC "; // show all product
 			}
 			else {
 				$sql .= "`packaging_type` = '$packaging_type'"; //has packaging type only
