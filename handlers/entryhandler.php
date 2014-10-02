@@ -4,8 +4,7 @@ function get() {
 		$product_id 		= sanitize($_GET["product_id"]);
 		$user_id 		= sanitize($_GET["user_id"]);
 		//$entry_id 	= sanitize($_GET["entry_id"]); 
-
-		$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `name` AS `entry_name`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+		$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `entry`.`name` AS `entry_name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `entry`.`product_id`='$product_id'";
 		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `entry_id`='$entry_id'";
 		//var_dump($sql);
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
