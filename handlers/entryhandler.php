@@ -26,6 +26,7 @@ function get() {
 	}
 
 	function post() {
+		$responseArray = null;
 		$entry_id 		= sanitize($_POST["entry_id"]); 
 		$user_id 		= sanitize($_POST["user_id"]);
 		$product_id		= sanitize($_POST["product_id"]);
@@ -44,12 +45,9 @@ function get() {
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 				if ($resultArray[0]['cnt']==0){
-					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `entry_name`, `manufacturer`, `packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$manufacturer','$packaging_type','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
-					//var_dump($manufacturer);
-					//var_dump($sql);
 					//need to create new / update product table and ratings
-
-
+					include "product_segment.php";
+					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `entry_name`, `manufacturer`, `packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$manufacturer','$packaging_type','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						if ($result){
 							$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`,`manufacturer`,`packaging_type`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
@@ -59,7 +57,8 @@ function get() {
 									echo _response(array("error"=>"entry_id does not exist, error, please check."),406);
 								} 
 								else{
-									echo _response($resultArray[0],201);
+									//echo _response($resultArray[0],201);
+									$responseArray[] = $resultArray[0];
 									mysqli_free_result($result);
 								}
 							}
@@ -89,7 +88,8 @@ function get() {
 											echo _response(array("error"=>"unable to insert the user, error"),406);
 										}
 										else{
-											echo _response($resultArray[0],201);
+											//echo _response($resultArray[0],201);
+											$responseArray[] = $resultArray[0];
 											mysqli_free_result($result);
 										}
 									}
@@ -117,7 +117,8 @@ function get() {
 							echo _response(array("error"=>"unable to insert the user, error"),406);
 						}
 						else{
-							echo _response($resultArray[0],201);
+							//echo _response($resultArray[0],201);
+							$responseArray[] = $resultArray[0];
 							mysqli_free_result($result);
 						}
 					}
@@ -130,6 +131,7 @@ function get() {
 				echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 			}
 		}
+		_response($responseArray, 201);
 	}
 
 
@@ -162,8 +164,9 @@ function get() {
 
 
 		if ($result = mysqli_query($GLOBALS['con'], $sql_select)) { //SQL (grammar) is correctly executed
-				$New_sum_of_rating = $result[0] +$sum_of_rating; //current sum_of_rating + new entry rating
-				$New_no_of_raters= $result[1]+1;				//current no_of_rater ++;
+				var_dump($result);
+				//$New_sum_of_rating = $result[0] +$sum_of_rating; //current sum_of_rating + new entry rating
+				//$New_no_of_raters= $result[1]+1;				//current no_of_rater ++;
 				var_dump($New_sum_of_rating);
 				var_dump($New_no_of_raters);
 				var_dump($result);
@@ -180,8 +183,8 @@ function get() {
 			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
-
 */
+
 //below are the overall ending
 }
 
