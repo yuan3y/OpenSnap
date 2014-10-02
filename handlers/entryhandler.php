@@ -26,6 +26,10 @@ function get() {
 	}
 
 	function post() {
+		//--------set default;
+		$_POST = _set_default('entry_id','user_id','product_id');
+		//--------end of set default
+
 		$responseArray = null;
 		$entry_id 		= sanitize($_POST["entry_id"]); 
 		$user_id 		= sanitize($_POST["user_id"]);

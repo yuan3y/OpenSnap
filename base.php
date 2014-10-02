@@ -21,6 +21,7 @@ class ArrayValue implements JsonSerializable {
 
 function sanitize($data)
 {
+	if (!isset($data)) $data = '';
     mysqli_real_escape_string($GLOBALS['con'], $data);
     return $data;
 }
@@ -57,6 +58,17 @@ function _cleanInputs($data) {
 	}
 	return $clean_input;
 }
+
+function _set_default() {
+	$arg_list = func_get_args();
+	$defaultArray=null;
+	foreach ($arg_list as $arg) {
+		$defaultArray[$arg] = '';
+	}
+	return array_merge($defaultArray, $_POST);
+}
+
+
 
 function _requestStatus($code) {
 	$status = array(  
