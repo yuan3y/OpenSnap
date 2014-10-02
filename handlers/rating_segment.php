@@ -22,7 +22,19 @@
 		$sql_select = "SELECT`sum_of_rating`, `no_of_raters` FROM `product` WHERE `product_id`=`$product_id`"
 		//store the data into a variable
 		//2. update the current data by adding the current entry overall rating in and increase the counter by 1 and store it back
+		
 		$sql_update="UPDATE `product` SET UPDATE `product` SET `name`='$entry_name',`manufacturer`='$manufacturer',`packaging_type`='$packaging_type',`sum_of_rating`='$New_sum_of_rating',`no_of_raters`='$New_no_of_raters' WHERE `product_id`='$product_id'";
+
+
+$sql_overall_rating_in_product="UPDATE `product` SET `avg_rating`=(SELECT AVG(`entry`.`rating_overall`)
+FROM entry
+WHERE (`entry`.`product_id` = 1234567890)) WHERE (`product`.`product_id` = 1234567890)";
+
+
+
+$sql_total_no_of_rater = "
+SELECT COUNT(*) AS cnt FROM `entry` WHERE `product_id`='1234567890'";
+
 		//(if result is null);store '0'it to a set of variable, else store the result into the same set of variable for later use
 
 
