@@ -53,7 +53,7 @@ function get() {
 				if ($resultArray[0]['cnt']==0){
 					//need to create new / update product table and ratings
 					
-					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
+					$sql = "INSERT IGNORE INTO `php54`.`entry` ( `user_id`, `product_id`,`name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES ('$user_id','$product_id','$entry_name','$rating_ease','$rating_safety','$rating_reseal','$rating_overall','$comment')";
 					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						if ($result){
@@ -82,11 +82,11 @@ function get() {
 				}
 				else {//when entry is duplicate, allow them to overwrite
 					//echo _response(array("error"=>"warning overwriting old entries"),200); 
-					$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
+					$sql = "UPDATE `entry` SET `name`='$entry_name',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `user_id`='$user_id' AND `product_id`='$product_id'";
 						if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 						//neeed to update product table and ratings
 						if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-							$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `entry`.`product_id`='$product_id'";
+							$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' AND `entry`.`product_id`='$product_id'";
 							if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 							if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 								$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -113,11 +113,11 @@ function get() {
 			}
 		}
 		else {//Handles update entries
-			$sql = "UPDATE `entry` SET `rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
+			$sql = "UPDATE `entry` SET `name`='$entry_name',`rating_ease`='$rating_ease',`rating_safety`='$rating_safety',`rating_reseal`='$rating_reseal',`rating_overall`='$rating_overall',`comment`='$comment' WHERE `entry_id`='$entry_id'";
 			if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 			if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 				if ($result){
-					$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `entry_id`='$entry_id'";
+					$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `product`.`image`, `entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `entry_id`='$entry_id'";
 					if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 					if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 						$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
