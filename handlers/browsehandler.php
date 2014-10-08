@@ -25,7 +25,7 @@ function CreateTableFromJson($objArray) {
 
 function addimghtml($workingArray) {
 	for ($i=0;$i<sizeof($workingArray);$i++) {
-		if (!empty($workingArray[$i]['image'])) $workingArray[$i]['image'] = "<img class=\"effectfront\" src=\"/".$workingArray[$i]['image']."\" height = \"100px\" width = \"100px\" />";
+		if (!empty($workingArray[$i]['image'])) $workingArray[$i]['image'] = "<img class=\"effectfront\" src=\"/".$workingArray[$i]['image']."\" height = \"200px\" width = \"200px\" />";
 		//var_dump($workingArray[$i]);
 	}
 return $workingArray;
@@ -86,12 +86,12 @@ table, th, td{
   margin: 0 auto;
 }
 .effectfront:hover {
-  -webkit-transform: scale(4);
-  -moz-transform: scale(4);
-  -o-transform: scale(4);
-  transform: scale(4);
-  transition: all 0.3s;
-  -webkit-transition: all 0.3s;
+  -webkit-transform: scale(2);
+  -moz-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
 }
 </style>
 </head>
