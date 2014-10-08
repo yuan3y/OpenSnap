@@ -44,7 +44,7 @@ table, th, td{
 
 
 $method = 'GET'; //change to 'POST' for post method
-$url = 'http://localhost/browse/';
+$url = 'http://'.$_SERVER['SERVER_NAME'].'/browse/';
 $data = array(
 //    'manufacturer' => 'kraft',
 //    'packaging_type' => 'bag'
