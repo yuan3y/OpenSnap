@@ -1,9 +1,7 @@
+<!DOCTYPE html>
 <html>
-
-
 <head>
 <script>
-
 var auto_refresh = setInterval(
 	function()
 	{
@@ -14,6 +12,11 @@ function submitform()
 {
 	//alert('test');
 	document.myForm.submit();
+}
+
+document.getElementById('mySelect').onchange = function(){
+	//document.getElementById('FORM_ID').action = '/'+this.value;
+	loadXMLDoc();
 }
 </script>
 <script>
@@ -41,16 +44,14 @@ xmlhttp.send();
 </script>
 </head>
 <body>
-<form name="myForm" id="myForm" action="http://localhost/browse/" method="GET">
-	<p>
-		<input name="manufacturer" value="Kraft" />
-	</p>
-	<p>
-		<input type="submit" name="submit" value="Submit" />
-	</p>
+<form name="myForm" id="myForm">
+	<select name="Manufactuer" id="mySelect">
+		<option value = "Kraft">Kraft</option>
+		<option value = "Bag">Bag</option>
+	</select>
 </form>
-<div id="myDiv"><h2>Let AJAX change this text</h2></div>
-<button type="button" onclick="loadXMLDoc()">Change Content</button>
-
+<div id="myDiv"><h2>You'll see after you select! Let AJAX change this text</h2></div>
+<!--<button type="button" onclick="loadXMLDoc()">Change Content</button>
+-->
 </body>
 </html>
