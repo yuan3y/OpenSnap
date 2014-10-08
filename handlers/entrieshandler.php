@@ -8,7 +8,6 @@ class EntriesHandler{
 		//$user_id 		= sanitize($_POST["user_id"]);
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
 
-
 		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
 		//$sql = "SELECT `entry_id`, `user_id`, `product_id`, `timestamp`, `image`, `entry_name`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` WHERE `user_id`='$user_id'";
 		//$sql ="SELECT * FROM `entry` WHERE `user_id`=`$user_id`";
@@ -20,7 +19,7 @@ class EntriesHandler{
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				echo _response((""),200);
+				echo _response("",200);
 			}
 			else{
 				echo _response($resultArray,200);

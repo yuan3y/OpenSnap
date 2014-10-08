@@ -5,7 +5,6 @@ include "handlers/imagehandler.php";
 include "handlers/entrieshandler.php";
 include "handlers/entryhandler.php";
 include "handlers/loginhandler.php";
-include "handlers/producthandler.php";
 include "handlers/userhandler.php";
 include "handlers/usershandler.php";
 include "handlers/deletehandler.php";
