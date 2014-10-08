@@ -32,7 +32,8 @@ function myFunction() {
 	var packaging_type = document.getElementById("packaging_type").value;
     //var x = document.getElementById("manufactuer").value+ document.getElementById("packaging_type").value;
     //document.getElementById("OutputTable").innerHTML = "You selected: " + x;
- 	var url = "http://localhost/browse/?manufactuer="+manufactuer+"&packaging_type="+packaging_type+"";
+ 	var url = "http://localhost/browse/?manufactuer="+manufactuer+"&packaging_type="+packaging_type;
+	//var url = "http://php54-opensnap.rhcloud.com/browse/?manufacturer="+manufactuer+"&packaging_type="+packaging_type;
    	document.getElementById("OutputTable").innerHTML = "url = " + url;
    
    
