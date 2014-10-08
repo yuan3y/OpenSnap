@@ -8,7 +8,9 @@ Create User
  this will create a user.
 ### fields to pass in:
 * email, password, name, gender, age
- gender is 0 or 1, age is number
+
+gender is 0 or 1, age is number
+
 ### sample success:
 ```json
 {"user_id":"3","email":"admin2@example.com","name":"Admin Aplus","gender":"0","age":"21"}
@@ -20,7 +22,7 @@ Create User
 
 Get User Detail
 ---------------
-**GET method:** http://php54-opensnap.rhcloud.com/users/:user_id
+**GET method:** http://php54-opensnap.rhcloud.com/users/$user_id
 e.g. http://php54-opensnap.rhcloud.com/users/3
  this will ask for all details about the user with this id.
 ### sample success:
@@ -35,9 +37,10 @@ e.g. http://php54-opensnap.rhcloud.com/users/3
 Check Login
 -----------
 **POST method:** http://php54-opensnap.rhcloud.com/checklogin/
- this will if the email & password match
+ this checks if the email & password match
 ### fields to pass in:
  * email, password
+
 ### sample success:
 ```json
 {"user_id":"10","email":"admin5@example.com","name":"Admin Aplus","gender":"0","age":"25"}
@@ -51,7 +54,7 @@ CreateEntry
 ---------------------------
 **POST method:** http://php54-opensnap.rhcloud.com/entries/
  this will create a entry.
- base on user_id and product_id
+ based on user_id and product_id
 ### fields to pass in:
 * user_id,product_id,entry_name,manufacturer,packaging_type,rating_ease,rating_safety,rating_reseal,rating_overall,comment
 
@@ -75,9 +78,10 @@ Update entry
 
 Get A particular Entry's Details using proudct_id and user_id
 -----------------------------------------------------------
-GET method:http://php54-opensnap.rhcloud.com/entries/
+**GET method:** http://php54-opensnap.rhcloud.com/entries/
 ### fields to pass in:
 * user_id,product_id
+
 ### sample success:
 ```json
 {"entry_id":"3","user_id":"1","product_id":"1001","timestamp":"2014-09-28 10:11:11","image":"upload\/3_1411913471.jpg","entry_name":"","rating_ease":"3","rating_safety":"3","rating_reseal":"3","rating_overall":"3","comment":"test null  Img Col via DBserver"}
@@ -89,9 +93,10 @@ GET method:http://php54-opensnap.rhcloud.com/entries/
 
 Get A particular Entry's Image URL
 -----------------------------------
-**GET method:** http://php54-opensnap.rhcloud.com/entries/$entry_id/image/
+**GET method:** http://php54-opensnap.rhcloud.com/entries/:entry_id/image/
 ### fields to pass in:
 * *none*
+
 ### sample success:
 ```json
 {"entry_id":"3","user_id":"1","product_id":"1001","timestamp":"2014-09-26 20:49:29","image":"upload\/3_1411778969.jpg","entry_name":"","rating_ease":"3","rating_safety":"3","rating_reseal":"3","rating_overall":"3","comment":"test null Img Col via DBserver"}
@@ -103,11 +108,12 @@ Get A particular Entry's Image URL
 
 Upload a particular Entry's Image
 -----------------------------------
-**POST method:** http://php54-opensnap.rhcloud.com/entries/$entry_id/image/
+**POST method:** http://php54-opensnap.rhcloud.com/entries/:entry_id/image/
 
 **Note: image upload should happen _ONLY_ after an entry is created**
 ### fields to pass in:
 * image_file (as a file)
+
 ### sample success:
 ```json
 {"entry_id":"3","image":"upload\/3_1411778969.jpg"}
@@ -119,23 +125,26 @@ Upload a particular Entry's Image
 
 Delete an Entry 
 ----------------------------------
-**POST method:** http://php54-opensnap.rhcloud.com/entries/$entry_id/delete/
+**POST method:** http://php54-opensnap.rhcloud.com/entries/:entry_id/delete/
 ### fields to pass in:
 * *none*
+
 ### sample success:
 ```json
 {"success":"entry  7 has been successfully deleleted"}
 ```
 ### sample failure:
 *none*
+
 * there's no failure condition. We simply don't care. *
 
 
 Display Journal
 -----------------------------------
-**POST method:** http://php54-opensnap.rhcloud.com/users/:number/entries/
+**POST method:** http://php54-opensnap.rhcloud.com/users/:user_id/entries/
 ### fields to pass in:
-* user_id
+* *none*
+
 ### sample success:
 ```json
 [{"entry_id":"2","user_id":"2","product_id":"8801062636358","timestamp":"2014-10-02 03:52:16","image":"upload\/2_1412236336.jpg","name":"Random Alvin","manufacturer":"Kraft","packaging_type":"Bag","rating_ease":"3","rating_safety":"4","rating_reseal":"2","rating_overall":"3","comment":"Alvin very bad!!!"},{"entry_id":"3","user_id":"2","product_id":"8851019110127","timestamp":"2014-10-02 04:22:32","image":"upload\/3_1412238152.jpg","name":"Pocky Biscuit Sticks","manufacturer":"Nestle","packaging_type":"Box","rating_ease":"5","rating_safety":"3","rating_reseal":"2","rating_overall":"3.3333333333333335","comment":"okay la...."}]
@@ -150,6 +159,7 @@ Browse Product
 **GET method:** http://php54-opensnap.rhcloud.com/browse/
 ### fields to pass in:
 * manufacturer, packaging_type
+
 ### sample success 1: when there is no input
 ```json
 [{"product_id":"8888915298062","name":"cute girl","manufacturer":"Kraft","packaging_type":"Bag","image":"upload\/4_1412238099.jpg","no_of_raters":"1","avg_rating":"4"},{"product_id":"8801062636358","name":"gs","manufacturer":"Kraft","packaging_type":"Bag","image":"upload\/1_1412243384.jpg","no_of_raters":"3","avg_rating":"3.3333333333333335"},{"product_id":"8851019110127","name":"Pocky Biscuit Sticks","manufacturer":"Nestle","packaging_type":"Box","image":"upload\/3_1412238152.jpg","no_of_raters":"1","avg_rating":"3"},{"product_id":"8885001890186","name":"herbal drink","manufacturer":"Kraft","packaging_type":"Bottle","image":"upload\/6_1412238270.jpg","no_of_raters":"1","avg_rating":"3"},{"product_id":"1234567890","name":"product4","manufacturer":"manufacturer00004","packaging_type":"Box","image":"","no_of_raters":"2","avg_rating":"2.5"},{"product_id":"0","name":"gs","manufacturer":"Kraft","packaging_type":"Bag","image":"","no_of_raters":"0","avg_rating":"0"},{"product_id":"123456","name":"produc1","manufacturer":"manufacturer00001","packaging_type":"Box","image":"","no_of_raters":"0","avg_rating":"0"}]
