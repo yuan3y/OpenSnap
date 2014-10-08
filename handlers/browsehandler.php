@@ -94,10 +94,10 @@ table, th, td{
   -webkit-transition: all 0.2s;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="http://tablefilter.free.fr/TableFilter/filtergrid.css" />
 </head>
 <body>
-<script type='text/javascript' src="http://tablefilter.free.fr/TableFilter/tablefilter_all_min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://tablefilter.free.fr/TableFilter/filtergrid.css" />
+<script type='text/javascript' src="/view/tablefilter_all_min.js"></script>
 STR1;
 echo CreateTableFromJson(json_encode($resultArray));
 echo <<<STR2
