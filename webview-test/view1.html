@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Select Options to Filter Products. Default All Prouducts.</p>
+
+<select id="manufactuer" onchange="myFunction()">
+		<option value = "">All</option>
+		<option value = "Kraft">Kraft</option>
+		<option value = "Marigold">Marigold</option>
+		<option value = "Nestle">Nestle</option>
+		<option value = "Quaker">Quaker</option>
+</select>
+
+<select id="packaging_type" onchange="myFunction()">
+		<option value = "">All</option>
+		<option value="Bag">Bag</option>
+		<option value="Bottle">Bottle</option>
+		<option value="Box">Box</option>
+		<option value="Can">Can</option>
+		<option value="Carton">Carton</option>
+		<option value="Wrapper">Wrapper</option>
+</select>
+
+<p>When you select a Datbase criteria , a function is triggered which outputs the URL of quries.</p>
+
+<p id="OutputTable"></p>
+
+<script>
+function myFunction() {
+	var manufactuer = document.getElementById("manufactuer").value;
+	var packaging_type = document.getElementById("packaging_type").value;
+    //var x = document.getElementById("manufactuer").value+ document.getElementById("packaging_type").value;
+    //document.getElementById("OutputTable").innerHTML = "You selected: " + x;
+ 	var url = "http://localhost/browse/?manufactuer='"+manufactuer+"'&packaging_type='"+packaging_type+"'";
+   	document.getElementById("OutputTable").innerHTML = "url = " + url;
+   
+   
+}
+</script>
+
+</body>
+</html>

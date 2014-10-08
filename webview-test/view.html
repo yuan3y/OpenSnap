@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!--
 <script>
 var auto_refresh = setInterval(
 	function()
@@ -14,11 +15,12 @@ function submitform()
 	document.myForm.submit();
 }
 
-document.getElementById('mySelect').onchange = function(){
+document.getElementById("myForm").onchange = function(){
 	//document.getElementById('FORM_ID').action = '/'+this.value;
 	loadXMLDoc();
 }
 </script>
+-->
 <script>
 function loadXMLDoc()
 {
@@ -41,16 +43,41 @@ xmlhttp.onreadystatechange=function()
 xmlhttp.open("GET","http://localhost/webview-test/create.php",true);
 xmlhttp.send();
 }
+
+//"http://localhost/webview-test/create.php?manufactuer="+document.getElementById('mySelect').value+"&packaging_type="+option2;
 </script>
 </head>
 <body>
-<form name="myForm" id="myForm">
-	<select name="Manufactuer" id="mySelect">
+<form name = "myForm" id="myForm">
+	Search By :   
+	<select name="manufactuer" id="manufactuer">
+    	<option value = "">Select Option</option>
 		<option value = "Kraft">Kraft</option>
-		<option value = "Bag">Bag</option>
+		<option value = "Marigold">Marigold</option>
+		<option value = "Nestle">Nestle</option>
+		<option value = "Quaker">Quaker</option>
+	</select>
+
+	<select name="packaging_type" id ="packaging_type">
+    	<option value = "">Select Option</option>
+		<option value="Bag">Bag</option>
+		<option value="Bottle">Bottle</option>
+		<option value="Box">Box</option>
+		<option value="Can">Can</option>
+		<option value="Carton">Carton</option>
+		<option value="Wrapper">Wrapper</option>
 	</select>
 </form>
-<div id="myDiv"><h2>You'll see after you select! Let AJAX change this text</h2></div>
+<div id="myDiv"><h2>You'll see after you select! Let AJAX change this text</h2>
+<br><br>
+</div>
+<script>
+	document.getElementById("myForm").onchange = //function(){
+	//document.getElementById('FORM_ID').action = '/'+this.value;
+	loadXMLDoc();
+}
+</script>
+
 <!--<button type="button" onclick="loadXMLDoc()">Change Content</button>
 -->
 </body>
