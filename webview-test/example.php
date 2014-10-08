@@ -1,4 +1,4 @@
-<?
+<?php
 require 'table.class.php';
 
 /*
@@ -64,3 +64,4 @@ echo '<br>Work with xml-string<br>';
 	new Table ($xml_string, 'xml'); // work with xml-string
 echo '<br>Generation time: '.(microtime(true)-$start);
 $start = microtime(true);
+?>
