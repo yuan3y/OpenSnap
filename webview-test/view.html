@@ -1,0 +1,56 @@
+<html>
+
+
+<head>
+<script>
+
+var auto_refresh = setInterval(
+	function()
+	{
+		submitform();
+	}, 10000);
+
+function submitform()
+{
+	//alert('test');
+	document.myForm.submit();
+}
+</script>
+<script>
+function loadXMLDoc()
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","http://localhost/webview-test/create.php",true);
+xmlhttp.send();
+}
+</script>
+</head>
+<body>
+<form name="myForm" id="myForm" action="http://localhost/browse/" method="GET">
+	<p>
+		<input name="manufacturer" value="Kraft" />
+	</p>
+	<p>
+		<input type="submit" name="submit" value="Submit" />
+	</p>
+</form>
+<div id="myDiv"><h2>Let AJAX change this text</h2></div>
+<button type="button" onclick="loadXMLDoc()">Change Content</button>
+
+</body>
+</html>
