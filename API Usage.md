@@ -1,5 +1,6 @@
 Aplus API
 =========
+[This API usage reference is available at github](https://github.com/yuan3y/OpenSnap/blob/master/API%20Usage.md )
 
 Create User
 -----------
@@ -103,6 +104,7 @@ Get A particular Entry's Image URL
 Upload a particular Entry's Image
 -----------------------------------
 **POST method:** http://php54-opensnap.rhcloud.com/entries/$entry_id/image/
+
 **Note: image upload should happen _ONLY_ after an entry is created**
 ### fields to pass in:
 * image_file (as a file)
