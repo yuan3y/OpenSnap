@@ -1,4 +1,36 @@
 <?php
+function CreateTableFromJson($objArray) {
+    // has passed in array has already been deserialized
+    $array = json_decode($objArray);
+    //var_dump($array);
+    $str = '<table id="browse" class="tableNormal">';
+    $str .= '<tr>';
+    /*foreach ($array[0] as $key => $index) {
+        $str .= '<th scope="col">' . $index . '</th>';
+        //echo "$key => $index \n";
+    }
+    $str .= '</tr>';*/
+    $str .= '<tbody>';
+    for ($i = 0; $i < sizeof($array); $i++) {
+        $str .= ($i % 2 == 0) ? '<tr class="alt">' : '<tr>';
+        foreach ($array[$i] as $key => $index) {
+            $str .= '<td>' . $index . '</td>';
+        }
+        $str .= '</tr>';
+    }
+    $str .= '</tbody>';
+    $str .= '</table>';
+    return $str;
+}
+
+function addimghtml($workingArray) {
+	for ($i=0;$i<sizeof($workingArray);$i++) {
+		if (!empty($workingArray[$i]['image'])) $workingArray[$i]['image'] = "<img src=\"/".$workingArray[$i]['image']."\" />";
+		//var_dump($workingArray[$i]);
+	}
+return $workingArray;
+}
+
 class BrowseHandler{
 	function get() {
 		$_GET = _set_default_get('manufacturer','packaging_type','view');
@@ -36,7 +68,40 @@ class BrowseHandler{
 			}
 			else{
 				if (empty($view)) echo _response($resultArray,200);
-				else var_dump($resultArray);
+				else{
+					$resultArray = addimghtml($resultArray);
+					echo <<<STR1
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+table, th, td{
+    border : 1px solid black;
+}
+.alt {
+    background-color: #BBC;
+}
+</style>
+</head>
+<body>
+<script type='text/javascript' src="http://tablefilter.free.fr/TableFilter/tablefilter_all_min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://tablefilter.free.fr/TableFilter/filtergrid.css" />
+STR1;
+echo CreateTableFromJson(json_encode($resultArray));
+echo <<<STR2
+<script type="text/javascript">
+var table3_Props = {
+    col_2: "multiple",
+    col_3: "multiple",
+    display_all_text: "[Show All]",
+    col_4: "none",
+    sort_select: true
+};
+var tf3 = setFilterGrid("browse", table3_Props);
+</script>
+</body></html>
+STR2;
+				}
 				mysqli_free_result($result);
 				}
 			}
