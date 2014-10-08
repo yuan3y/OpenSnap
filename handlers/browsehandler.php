@@ -1,9 +1,10 @@
 <?php
 class BrowseHandler{
 	function get() {
-		$_GET = _set_default_get('manufacturer','packaging_type');
+		$_GET = _set_default_get('manufacturer','packaging_type','view');
 		$manufacturer 	= sanitize($_GET["manufacturer"]);
 		$packaging_type 	= sanitize($_GET["packaging_type"]);
+		$view 	= sanitize($_GET["view"]);
 
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
 		
@@ -26,13 +27,6 @@ class BrowseHandler{
 			}
 		}
 
-
-
-
-
-
-
-
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -41,7 +35,8 @@ class BrowseHandler{
 				echo _response((""),200);
 			}
 			else{
-				echo _response($resultArray,200);
+				if (empty($view)) echo _response($resultArray,200);
+				else var_dump($resultArray);
 				mysqli_free_result($result);
 				}
 			}
