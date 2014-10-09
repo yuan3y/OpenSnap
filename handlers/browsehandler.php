@@ -94,7 +94,7 @@ table, th, td{
   -webkit-transition: all 0.2s;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="http://tablefilter.free.fr/TableFilter/filtergrid.css" />
+<link rel="stylesheet" type="text/css" href="/view/filtergrid.css" />
 </head>
 <body>
 <script type='text/javascript' src="/view/tablefilter_all_min.js"></script>
