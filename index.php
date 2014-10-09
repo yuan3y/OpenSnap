@@ -9,24 +9,9 @@ include "handlers/userhandler.php";
 include "handlers/usershandler.php";
 include "handlers/deletehandler.php";
 include "handlers/browsehandler.php";
- 
-class HelloHandler {
-	function get() {
-		echo 'Hello World!!!(get)';
-	}
-	function post() {
-		echo 'Hello World!!!(post)';
-	}
-}
+include "handlers/hellohandler.php"; 
+include "handlers/testhandler.php";
 
-class TestHandler {
-	function get($id) {
-		echo "get $id successful";
-	}
-	function post($id) {
-		echo "post $id successful";
-	}
-}
 
 Toro::serve(array(
 	"/" => "HelloHandler",
