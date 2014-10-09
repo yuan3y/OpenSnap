@@ -16,7 +16,7 @@ the password is **NOT** encrypted at all. Do change that when you decide to fork
 
 [This API usage reference is available at github](https://github.com/yuan3y/OpenSnap/blob/master/API%20Usage.md )
 
-[Live Demo Site](http://php54-opensnap.rhcloud.com/) You are welcome to try to see the demo, however, you are **NOT** allowed to incorportate this live site directly into your project.
+[Live Demo Site](http://php54-opensnap.rhcloud.com/) You are welcome to try to see the demo, however, you are **NOT** allowed to incorporate this live site directly into your project.
 
 Environment
 ---
