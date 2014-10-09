@@ -1,6 +1,6 @@
 A PHP Mysql server API for OpenSnap
 ====================================
-This is an ongoing work for our 2014 Semester 1's CZ2006 Software Engineering project in Nanyang Technological University, Singapore.
+This is an ongoing work for our Software Engineering project.
 
 All codes are our own original work unless otherwise indicated.
 
@@ -16,7 +16,7 @@ the password is NOT encrypted at all. Do change that when you decide to fork it 
 
 [This API usage reference is available at github](https://github.com/yuan3y/OpenSnap/blob/master/API%20Usage.md )
 
-[Live Demo Site](http://php54-opensnap.rhcloud.com/) You are welcome to use this live site, however it is provided "as is", without any guarantee of availibility or security among others. 
+[Live Demo Site](http://php54-opensnap.rhcloud.com/) You are welcome to try to see the demo, however, you are ** NOT ** allowed to incorportate this live site directly into your project.
 
 Environment
 ---
