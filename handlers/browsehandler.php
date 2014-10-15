@@ -5,6 +5,11 @@ function CreateTableFromJson($objArray) {
     //var_dump($array);
     $str = '<table id="browse" class="tableNormal">';
     $str .= '<tr>';
+    $header = ["Barcode", "Product Name", "Manufactuer", "Packaging Type", "Image", "Number of Raters", "Average Rating"];
+    foreach ($header as $title) {
+    	$str.= '<th scope="col">'.$title.'</th>';
+    }
+    $str.='</tr>';
     /*foreach ($array[0] as $key => $index) {
         $str .= '<th scope="col">' . $index . '</th>';
         //echo "$key => $index \n";
@@ -26,9 +31,15 @@ function CreateTableFromJson($objArray) {
 function addimghtml($workingArray) {
 	for ($i=0;$i<sizeof($workingArray);$i++) {
 		if (!empty($workingArray[$i]['image'])) $workingArray[$i]['image'] = "<img class=\"effectfront\" src=\"/".$workingArray[$i]['image']."\" height = \"200px\" width = \"200px\" />";
-		//var_dump($workingArray[$i]);
 	}
-return $workingArray;
+	return $workingArray;
+}
+
+function ratingrounding($workingArray) {
+	for ($i=0;$i<sizeof($workingArray);$i++) {
+		if (!empty($workingArray[$i]['avg_rating'])) $workingArray[$i]['avg_rating'] = number_format((float)$workingArray[$i]['avg_rating'], 2, '.', '');
+	}
+	return $workingArray;
 }
 
 class BrowseHandler{
@@ -67,9 +78,10 @@ class BrowseHandler{
 				echo _response((""),200);
 			}
 			else{
-				if (empty($view)) echo _response($resultArray,200);
+				if (empty($view) || (strtolower($view)=='json')) echo _response($resultArray,200);
 				else{
 					$resultArray = addimghtml($resultArray);
+					$resultArray = ratingrounding($resultArray);
 					echo <<<STR1
 <!DOCTYPE HTML>
 <html>
@@ -103,6 +115,8 @@ echo CreateTableFromJson(json_encode($resultArray));
 echo <<<STR2
 <script type="text/javascript">
 var table3_Props = {
+	col_0: "select",
+	col_1: "checklist",
     col_2: "multiple",
     col_3: "multiple",
     display_all_text: "[Show All]",
