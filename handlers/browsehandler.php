@@ -206,13 +206,13 @@ echo CreateTableFromJson(json_encode($resultArray));
 echo <<<STR2
 <script type="text/javascript">
 var table3_Props = {
-    //col_1: "checklist",
+    col_1: "none", //"checklist",
     col_2: "multiple",
     col_3: "multiple",
     display_all_text: "[Show All]",
     col_4: "none",
-    //col_5: "select",
-    //col_6: "select",
+    col_5: "none", //"select",
+    col_6: "none", //"select",
     sort_select: true
 };
 var tf3 = setFilterGrid("browse", table3_Props);
