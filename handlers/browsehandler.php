@@ -206,6 +206,7 @@ echo CreateTableFromJson(json_encode($resultArray));
 echo <<<STR2
 <script type="text/javascript">
 var table3_Props = {
+    col_0: "none",
     col_1: "none", //"checklist",
     col_2: "multiple",
     col_3: "multiple",
