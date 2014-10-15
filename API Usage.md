@@ -34,6 +34,23 @@ e.g. http://php54-opensnap.rhcloud.com/users/3
 {"error":"user does not exist , error"}
 ```
 
+Update User Detail
+------------------
+**POST method:** http://php54-opensnap.rhcloud.com/users/$user_id
+e.g. http://php54-opensnap.rhcloud.com/users/3
+ this will update all details about the user with this id.
+### fields to pass in:
+* email,old_password,name,gender,age,password
+
+### sample success:
+```json
+{"user_id":"1","email":"user1@hotmail.com","name":"user1","gender":"0","age":"21"}
+```
+###sample faliure:
+```json
+{"error":"Invalid old password "}
+```
+
 Check Login
 -----------
 **POST method:** http://php54-opensnap.rhcloud.com/checklogin/

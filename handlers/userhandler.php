@@ -17,9 +17,11 @@ class UserHandler {
 		}
 	}
 	function post($user_id) {
+		$_POST = _set_default('password');
 		$old_password 	= sanitize($_POST["old_password"]);
 		$email 		= sanitize($_POST["email"]);
 		$password 	= sanitize($_POST["password"]);
+		if (empty($password)) $password=$old_password;
 		$name 		= sanitize($_POST["name"]);
 		$gender 	= sanitize($_POST["gender"]);
 		$age 		= sanitize($_POST["age"]);
@@ -27,7 +29,7 @@ class UserHandler {
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
 			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
 			if (empty($resultArray)){
-				echo _response(array("error"=>"Invalid email/password "),404);
+				echo _response(array("error"=>"Invalid old password"),404);
 				}
 			else{
 				$sql = "UPDATE `user` SET `user_id`='$user_id',`email`='$email',`password`='$password',`name`='$name',`gender`='$gender', `age`='$age' WHERE `user_id`='$user_id'";
@@ -53,7 +55,6 @@ class UserHandler {
 					echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 				}
 				//echo _response($resultArray[0],200);
-				//old_password is correct
 				mysqli_free_result($result);
 			}
 		}
