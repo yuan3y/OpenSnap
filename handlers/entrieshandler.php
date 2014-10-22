@@ -3,7 +3,7 @@ class EntriesHandler{
 	function get($user_id) {
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
 
-		$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `entry`.`image`,`entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' ";
+		$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `entry`.`image`,`entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' ORDER BY `timestamp` DESC";
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
@@ -24,7 +24,7 @@ class EntriesHandler{
 	function post($user_id) { // for user journal feed
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
 
-		$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `entry`.`image`,`entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' ";
+		$sql = "SELECT `entry_id`, `user_id`, `entry`.`product_id`, `timestamp`, `entry`.`image`,`entry`.`name`, `manufacturer`, `packaging_type`,  `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment` FROM `entry` INNER JOIN `product` ON `entry`.`product_id` = `product`.`product_id` WHERE `user_id`='$user_id' ORDER BY `timestamp` DESC";
 		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
 
 		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
