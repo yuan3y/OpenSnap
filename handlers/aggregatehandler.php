@@ -1,11 +1,12 @@
-<?php
-function CreateTableFromJson($objArray) {
+<?php 
+class AggregateHandler{
+	function CreateTableJson($objArray) {
     // has passed in array has already been deserialized
     $array = json_decode($objArray);
     //var_dump($array);
     $str = '<table id="browse" class="tableNormal">';
     $str .= '<tr>';
-    $header = ["Barcode", "Product Name", "Manufactuer", "Packaging Type", "Image", "Number of Raters", "Average Rating"];
+    $header = array('Age Group','Ease of Opening','Safety of Packaging','Resealability of Packaging','Overall Rating');
     foreach ($header as $title) {
     	$str.= '<th scope="col">'.$title.'</th>';
     }
@@ -26,71 +27,75 @@ function CreateTableFromJson($objArray) {
     $str .= '</tbody>';
     $str .= '</table>';
     return $str;
-}
-
-function addimghtml($workingArray) {
-	for ($i=0;$i<sizeof($workingArray);$i++) {
-		if (!empty($workingArray[$i]['image'])) $workingArray[$i]['image'] = "<img class=\"effectfront\" src=\"/".$workingArray[$i]['image']."\" height = \"200px\" width = \"200px\" />";
 	}
-	return $workingArray;
-}
-
-function ratingrounding($workingArray) {
-	for ($i=0;$i<sizeof($workingArray);$i++) {
-		if (!empty($workingArray[$i]['avg_rating'])) $workingArray[$i]['avg_rating'] = number_format((float)$workingArray[$i]['avg_rating'], 2, '.', '');
-	}
-	return $workingArray;
-}
-
-function productlink($workingArray) {
-	for ($i=0;$i<sizeof($workingArray);$i++) {
-		if (!empty($workingArray[$i]['product_id'])) $workingArray[$i]['product_id'] = "<a href=\"/product/".$workingArray[$i]['product_id']."\">".$workingArray[$i]['product_id']."</a>";
-	}
-	return $workingArray;
-}
-
-class BrowseHandler{
-	function get() {
-		$_GET = _set_default_get('manufacturer','packaging_type','view');
-		$manufacturer 	= sanitize($_GET["manufacturer"]);
-		$packaging_type 	= sanitize($_GET["packaging_type"]);
-		$view 	= sanitize($_GET["view"]);
-
-		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($user_id);
-		
-		$sql = "SELECT `product_id`, `name`, `manufacturer`, `packaging_type`, `image`, `no_of_raters`, `avg_rating` FROM `product` WHERE ";
-		
-		if(empty($manufacturer)) {
-			if (empty($packaging_type)) {
-				$sql .= "1 ORDER BY  `avg_rating` DESC "; // show all product
-			}
-			else {
-				$sql .= "`packaging_type` = '$packaging_type'"; //has packaging type only
-			}
+	function get($product_id) {
+		$_GET = _set_default_get('view');
+		$view = sanitize($_GET["view"]);
+		if (strtolower($view)=="json")
+			$viewInJSON  = true;
+		else $viewInJSON = false;
+		$responseArray = array();
+		$subnull="N/A";
+		$titles=array('Age Group','Ease of Opening','Safety of Packaging','Resealability of Packaging','Overall Rating');
+		$sql = "SELECT AVG(`entry`.`rating_ease`), AVG(`entry`.`rating_safety`), AVG(`entry`.`rating_reseal`), AVG(`entry`.`rating_overall`) 
+		FROM `entry` INNER JOIN `user` ON (`user`.`user_id` = `entry`.`user_id`) WHERE (`entry`.`product_id` = '$product_id' ";
+		$result  = mysqli_query($GLOBALS['con'], $sql." AND `user`.`age` <13)");
+		//var_dump($result);
+		if ($result) {
+			$resultArray = mysqli_fetch_all($result, MYSQLI_NUM);
+			//var_dump($resultArray[0]);
+			$ratings = $resultArray[0];
+			if (!$viewInJSON)
+				for ($i=0; $i<4; $i++) {
+					if (!$ratings[$i]) $ratings[$i]=$subnull;
+					else $ratings[$i]=round($ratings[$i] * 1e2)/1e2;
+				}
+			array_unshift($ratings, "<=12");
+			//var_dump($ratings);
+			$responseArray[] = array_combine($titles, $ratings);
 		}
 		else {
-			if (empty($packaging_type)) {
-				$sql .= " `manufacturer` = '$manufacturer'";
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+		}
+		$result  = mysqli_query($GLOBALS['con'], $sql." AND `user`.`age` >=13 AND  `user`.`age` <50)");
+		//var_dump($result);
+		if ($result) {
+			$resultArray = mysqli_fetch_all($result, MYSQLI_NUM);
+			//var_dump($resultArray[0]);
+			$ratings = $resultArray[0];
+			if (!$viewInJSON)
+			for ($i=0; $i<4; $i++) {
+				if (!$ratings[$i]) $ratings[$i]=$subnull;
+				else $ratings[$i]=round($ratings[$i] * 1e2)/1e2;
 			}
-			else {
-				$sql .= " `packaging_type` = '$packaging_type' AND `manufacturer` = '$manufacturer'";
+			array_unshift($ratings, "13-49");
+			$responseArray[] = array_combine($titles, $ratings);
+		}
+		else {
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
+		}
+		$result  = mysqli_query($GLOBALS['con'], $sql." AND `user`.`age` >=50)");
+		//var_dump($result);
+		if ($result) {
+			$resultArray = mysqli_fetch_all($result, MYSQLI_NUM);
+			//var_dump($resultArray[0]);
+			$ratings = $resultArray[0];
+			if (!$viewInJSON)
+			for ($i=0; $i<4; $i++) {
+				if (!$ratings[$i]) $ratings[$i]=$subnull;
+				else $ratings[$i]=round($ratings[$i] * 1e2)/1e2;
 			}
+			array_unshift($ratings, ">=50");
+			$responseArray[] = array_combine($titles, $ratings);
+		}
+		else {
+			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 
-		if (isset($GLOBALS['DEBUG']) && $GLOBALS['DEBUG']) var_dump($sql);
-
-		if ($result = mysqli_query($GLOBALS['con'], $sql)) { //SQL (grammar) is correctly executed
-			$resultArray = mysqli_fetch_all($result,MYSQLI_ASSOC);
-			if (empty($resultArray)){
-				echo _response((""),200);
-			}
-			else{
-				if (empty($view) || (strtolower($view)=='json')) echo _response($resultArray,200);
-				else{
-					$resultArray = addimghtml($resultArray);
-					$resultArray = productlink($resultArray);
-					$resultArray = ratingrounding($resultArray);
-					echo <<<STR1
+		if ($viewInJSON)
+			echo _response($responseArray,200);
+		else {
+			echo <<<STR1
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -208,33 +213,15 @@ table tr:hover td {
 <link rel="stylesheet" type="text/css" href="/view/filtergrid.css" />
 </head>
 <body>
-<script type='text/javascript' src="/view/tablefilter_all_min.js"></script>
 STR1;
-echo CreateTableFromJson(json_encode($resultArray));
+echo AggregateHandler::CreateTableJson(json_encode($responseArray));
 echo <<<STR2
-<script type="text/javascript">
-var table3_Props = {
-    col_0: "none",
-    col_1: "none", //"checklist",
-    col_2: "multiple",
-    col_3: "multiple",
-    display_all_text: "[Show All]",
-    col_4: "none",
-    col_5: "none", //"select",
-    col_6: "none", //"select",
-    sort_select: true
-};
-var tf3 = setFilterGrid("browse", table3_Props);
-</script>
+
 </body></html>
 STR2;
-				}
-				mysqli_free_result($result);
-				}
-			}
-		else{ //SQL (grammar) has error
-			echo _response(array("error"=>mysqli_error($GLOBALS['con'])),500);
 		}
 	}
+
 }
-?>
+
+?>	

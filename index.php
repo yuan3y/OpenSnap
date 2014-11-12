@@ -11,7 +11,7 @@ include "handlers/deletehandler.php";
 include "handlers/browsehandler.php";
 include "handlers/hellohandler.php"; 
 include "handlers/testhandler.php";
-
+include "handlers/aggregatehandler.php";
 
 Toro::serve(array(
 	"/" => "HelloHandler",
@@ -21,13 +21,12 @@ Toro::serve(array(
 	"/users/" => "UsersHandler",
 	"/users/:number" => "UserHandler",
 	"/checklogin/" => "LoginHandler",
-	"/products/" => "ProductsHandler",
-	"/products/:number" => "ProductsHandler",
 	"/entries/" => "EntryHandler",
 	"/users/:number/entries/" => "EntriesHandler",
 	"/entries/:number/image/" => "ImageHandler",
 	"/entries/:number/delete/" => "DeleteHandler",
-	"/browse/" => "BrowseHandler"
+	"/browse/" => "BrowseHandler",
+	"/product/:number" => "AggregateHandler"
 
 ));
 
