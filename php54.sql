@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.2
+-- version 4.0.10.4
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.6.113.130:3306
--- Generation Time: Oct 08, 2014 at 05:08 AM
+-- Generation Time: Nov 13, 2014 at 02:32 PM
 -- Server version: 5.5.37
 -- PHP Version: 5.3.3
 
@@ -40,16 +40,17 @@ CREATE TABLE IF NOT EXISTS `entry` (
   `comment` text NOT NULL,
   PRIMARY KEY (`entry_id`),
   KEY `user_id` (`user_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+  KEY `product_id` (`product_id`),
+  KEY `timestamp` (`timestamp`),
+  KEY `timestamp_2` (`timestamp`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `entry`
 --
 
 INSERT INTO `entry` (`entry_id`, `user_id`, `product_id`, `timestamp`, `name`, `image`, `rating_ease`, `rating_safety`, `rating_reseal`, `rating_overall`, `comment`) VALUES
-(1, 1, 8801062636358, '2014-10-02 09:49:44', 'Aplus Product', '', 5, 5, 5, 5, 'This is Group Aplus wishing you good luck.');
-
+(1, 1, 8888077102108, '2014-11-08 08:06:54', 'Choco Panda', 'upload/1_1415434014.jpg', 5, 5, 5, 5, 'Easy to open, give it A plus');
 -- --------------------------------------------------------
 
 --
@@ -73,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`product_id`, `name`, `manufacturer`, `packaging_type`, `image`, `no_of_raters`, `avg_rating`) VALUES
-(8801062636358, 'Aplus Product', 'Kraft', 'Bag', '', 1, 5);
+(8888077102108, 'Choco Panda', 'Meiji', 'Box', 'upload/1_1415434014.jpg', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -90,14 +91,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `age` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `name`, `gender`, `age`) VALUES
-(1, 'user@example.com', 'password', 'Aplus', 0, 20);
+(1, 'gosu@gosu.com', '12345', 'Gosu', 0, 23);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -3,3 +3,4 @@ upload/
 #config.php
 *.rar
 index_old.php
+.idea
