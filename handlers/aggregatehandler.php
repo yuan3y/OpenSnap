@@ -6,7 +6,7 @@ class AggregateHandler{
     //var_dump($array);
     $str = '<table id="browse" class="tableNormal">';
     $str .= '<tr>';
-    $header = array('Age Group','Ease of Opening','Safety of Packaging','Resealability of Packaging','Overall Rating');
+    $header = array('Age Group','Number Of Raters','Ease of Opening','Safety of Packaging','Resealability of Packaging','Overall Rating');
     foreach ($header as $title) {
     	$str.= '<th scope="col">'.$title.'</th>';
     }
@@ -36,8 +36,8 @@ class AggregateHandler{
 		else $viewInJSON = false;
 		$responseArray = array();
 		$subnull="N/A";
-		$titles=array('Age Group','Ease of Opening','Safety of Packaging','Resealability of Packaging','Overall Rating');
-		$sql = "SELECT AVG(`entry`.`rating_ease`), AVG(`entry`.`rating_safety`), AVG(`entry`.`rating_reseal`), AVG(`entry`.`rating_overall`) 
+		$titles=array('Age Group','Number Of Raters','Ease of Opening','Safety of Packaging','Resealability of Packaging','Overall Rating');
+		$sql = "SELECT COUNT(*), AVG(`entry`.`rating_ease`), AVG(`entry`.`rating_safety`), AVG(`entry`.`rating_reseal`), AVG(`entry`.`rating_overall`) 
 		FROM `entry` INNER JOIN `user` ON (`user`.`user_id` = `entry`.`user_id`) WHERE (`entry`.`product_id` = '$product_id' ";
 		$result  = mysqli_query($GLOBALS['con'], $sql." AND `user`.`age` <13)");
 		//var_dump($result);
@@ -46,7 +46,7 @@ class AggregateHandler{
 			//var_dump($resultArray[0]);
 			$ratings = $resultArray[0];
 			if (!$viewInJSON)
-				for ($i=0; $i<4; $i++) {
+				for ($i=0; $i<sizeof($ratings); $i++) {
 					if (!$ratings[$i]) $ratings[$i]=$subnull;
 					else $ratings[$i]=round($ratings[$i] * 1e2)/1e2;
 				}
@@ -64,7 +64,7 @@ class AggregateHandler{
 			//var_dump($resultArray[0]);
 			$ratings = $resultArray[0];
 			if (!$viewInJSON)
-			for ($i=0; $i<4; $i++) {
+			for ($i=0; $i<sizeof($ratings); $i++) {
 				if (!$ratings[$i]) $ratings[$i]=$subnull;
 				else $ratings[$i]=round($ratings[$i] * 1e2)/1e2;
 			}
@@ -81,7 +81,7 @@ class AggregateHandler{
 			//var_dump($resultArray[0]);
 			$ratings = $resultArray[0];
 			if (!$viewInJSON)
-			for ($i=0; $i<4; $i++) {
+			for ($i=0; $i<sizeof($ratings); $i++) {
 				if (!$ratings[$i]) $ratings[$i]=$subnull;
 				else $ratings[$i]=round($ratings[$i] * 1e2)/1e2;
 			}
